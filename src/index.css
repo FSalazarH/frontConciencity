@@ -1,0 +1,57 @@
+
+
+
+ .tabs .tab a{
+            color:white;
+        } /*Black color to the text*/
+
+        .tabs .tab a:hover {
+            background-color:#eee;
+            color:#000;
+        } /*Text color on hover*/
+
+        .tabs .tab a.active {
+            background-color:#888;
+            color:white;
+        } /*Background and text color when a tab is active*/
+
+        .tabs .indicator {
+            background-color:#00695c;
+        } /*Color of underline*/
+
+
+.brand-logo >img {
+  width: 50px;
+  height: 50px;
+  margin-top: 5px;
+}
+/* Menu - profile */
+.bg-card-user {
+  background: linear-gradient(#34e89e, #0f3443);
+  padding: 15px 0;
+}
+.truncate >img {
+  width: 180px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+/* FOOTER */
+footer .foot-text {
+  margin-top: 10px;
+}
+
+/* LOGIN */
+.logueo {/* PARALLAX */
+    height: 650px!important;
+}
+i.iconis {
+    font-size: 1em!important;
+    margin-top: 8px;
+}
+.login-card {
+    border: 1px solid #FFF;
+    width: 100%;
+    margin: 0 auto;
+    background-color: rgba(255,255,255,.7);
+    padding: 40px;
+}

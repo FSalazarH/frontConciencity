@@ -59,7 +59,41 @@ class Chart extends Component{
 				<div className="container">
 					<div className="row">
 						<div className = "col s12">
+							<div className="card gradient-45deg-red-pink gradient-shadow min-height-100">
+			                    
+								<div className="row center mt-2">
+									<div className="col s5 mt-3 ml-2">
+										<h5> Bienvenido Juanito!   <br/> este mes has aportado </h5>
 
+									</div>
+
+									<div className="col s6 mt-5">
+										<div className="row">
+											<div className="col s3">
+												 <i className="medium material-icons background-round"> free_breakfast </i>
+											</div>
+											<div className="col s3">
+										 		<i className="medium material-icons background-round">arrow_forward</i>
+										 	</div>
+										 	<div className="col s3">
+											 	<i className="medium material-icons background-round">fingerprint</i>
+											 </div>
+											 <div className="col s2 mt-3">
+											 	<h6> 40 ekg </h6>
+											 </div>
+										 </div>
+		
+									</div>
+									<div className="col s12 left-align ml-5">
+										<h6> Proxima recolección:  Viernes 9 de Noviembre  </h6> 	
+									</div>				
+
+								</div>
+
+
+                  			</div>
+                  			<br/>
+                  			<br/>
 						</div>
 						<div className = "col s6">
 							<BarChart data={data} labels={labels} />

@@ -4,7 +4,7 @@ import React, {Component } from 'react';
 class Navigation extends Component {
 	render(){
 	return(
-			 <nav>
+			 <nav className="green darken-4">
 			    <div className="nav-wrapper">
 			      <a href="#!" className="brand-logo center">  </a>
 			      <ul className="left hide-on-med-and-down">

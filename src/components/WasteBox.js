@@ -57,7 +57,7 @@ class WasteBox extends Component{
 			
 				
 							
-				<Tabs className='teal lighten-2 z-depth-1'>
+				<Tabs className='teal green z-depth-1'>
 				    {listItems}
 				</Tabs>
 	)

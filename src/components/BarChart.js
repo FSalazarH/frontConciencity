@@ -14,10 +14,10 @@ class BarChart extends Component{
 		            label: 'Kilos de Residuos',
 		            data: this.props.data,
 		            backgroundColor: [
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(75, 192, 192, 0.2)'
+		                '#b9f6ca',
+		                '#b9f6ca',
+		                '#b9f6ca',
+		                '#b9f6ca'
 		            ],
 		            borderColor: [
 		                'rgba(75, 192, 192, 1)',

@@ -1,53 +1,149 @@
 import React, {Component } from 'react';
-import {Icon} from 'react-materialize';
+import {Row,Icon,Input,Toast} from 'react-materialize';
+import { Parallax, Background } from 'react-parallax';
 
 class Login extends Component{
+
+
+
+
+	constructor(props){
+		super(props);
+		this.onChange = this.onChange.bind(this);
+		this.state = {
+			password: "",
+			username: "",
+			usertype: "Residences"
+		}
+
+
+		/*Redirecciona en caso de necesitarlo:  */
+		var data = JSON.parse(sessionStorage.getItem('getData'));
+		console.log(data);
+		
+		if(data){
+			fetch("http://localhost:3000/api/" + data['usertype'] +"/" + data['id'] + "?access_token=" + data['token'])
+			.then(response => response.json())
+			.then(parsedJson => {
+				if(parsedJson['error'] ){
+					console.log("error",parsedJson['error']);
+				}else{
+					this.props.history.push('/' + data['usertype']);
+				}
+			});
+		}
+	}
+
+	onChange(e) {
+		this.setState({'usertype':e.target.value});
+ 	 }
+
+	handleClick(event) {
+		var usertype= this.state.usertype;
+		console.log(this.state);
+
+		fetch("http://localhost:3000/api/" + usertype + "/login?[include]=user",
+			{
+			    method: "POST",
+			    body: JSON.stringify(this.state),
+			     headers:{
+				    'Content-Type': 'application/json'
+				  }
+			}
+		)
+		.then(response => response.json())
+		.then(parsedJson => {
+			if(parsedJson['id']){
+				console.log("logeado");
+				var data={
+					"token":parsedJson['id'],
+					"id":parsedJson['userId'],
+					"usertype":usertype
+				}
+				sessionStorage.setItem('getData', JSON.stringify(data));
+
+
+				this.props.history.push('/' + usertype);
+			}else{
+				console.log("no logeado?");
+				window.Materialize.toast('Nombre de usuario o contraseña incorrecto!', 1000, 'red');
+
+
+			}
+			
+
+			} 
+		)
+		.catch(error => window.Materialize.toast('Error al intentar conectar con el servidor.', 1500, 'red') );
+		
+	}
+		/*
+		 axios.request({
+		      method: 'post',
+		      url: 'http://localhost:3000/api/Residences/login',
+		      data: requestBody
+		    }).then(response => {
+		           return response.data.message;
+    			console.log("quiaaaas",response.data.message);
+		    }).catch(err => console.log(err));
+			} */
+
+
 	render(){
 
 		return(
 
-			
-		      	<div className="row">
-		      		<div className="col m8 s8 offset-m2 offset-s2 center">
-		      			<h4 className="bg-card-user">
-		      				<img  src= {window.location.origin + '/img/user.png'} alt="20px"  width="120" className="circle responsive-img"/>
+			<Parallax
+            blur={10}
+            bgImage='http://goplaceit.s3.amazonaws.com/proyectos/2b2d405b-7349-4e12-a28a-25806f98f23c.jpg'
+            strength={180}>
 
-		      				  <div className="row">
+				<div style={{ height: '200px' }} />
+		      		<div className="row">
+		      		<div className="col m8 s12 offset-m2 center">
+		      			<h4 className="bg-card bg-card-user">
+		      				<br/>
+		      				<img  src= {window.location.origin + '/img/logo-circle.jpg'} alt="20px"  width="120" className="circle responsive-img"/>
 
-		      				  	  <div className="col m8 s8 offset-m2 offset-s2 center">
+		      				    <div className="row">
+		      				  	  <div className="col m8 s12 offset-m2 center">
+									  <div className="row login-card card">
+									  	<h4>Inicia sesión. </h4>
+									    <form className="col s12">
+									    	<Row>
+									    		<Input s={12} type='select' label="Tipo de Usuario" onChange={this.onChange}  defaultValue='Residences'>
+												    <option value='Residences'>  Residente </option>
+												    <option value='CommunityManagers'> Administrador </option>
+												    <option value='Recycler'> Reciclador </option>
+												</Input>
+									         	<Input s={12} label="Nombre o Email" id="icon_prefix" type="text" value={this.state.username}  onChange = {(event,newValue) => this.setState({username:newValue})} >
+									       			<Icon className="material-icons iconis prefix"> account_box </Icon>
+									       	  	</Input>
 
-								  <div className="row login-card card">
-								  	<h4>Inicia sesión. </h4>
-								    <form className="col s12">
-								      <div className="row">
-								         <div className="input-field col m12 s12">
-								          <Icon className="material-icons iconis prefix"> account_box </Icon>
-								          <input id="icon_prefix" type="text" className="validate"/>
-								          <label for="icon_prefix">Nombre o Email</label>
-								        </div>
-								      </div>
-								      <div className="row">
-								        <div className="input-field col m12 s12">
-								          <Icon className="material-icons iconis prefix"> lock </Icon>
-								          <input id="password" type="password" className="validate"/>
-								          <label for="password">Contraseña</label>
-								        </div>
-								      </div>
-								      <div className="row">
-								      	<button className="btn waves-effect waves-light" type="submit" name="action">Iniciar sesión!</button>
-								      </div>
-								    </form>
-								  </div>
+		
+									        	<Input s={12} label="Contraseña "id="password" type="password" value={this.state.password} onChange = {(event,newValue) => this.setState({password:newValue})} >
+									          		<Icon className="material-icons iconis prefix"> lock </Icon>
+									          	</Input>
 
+		
+									      	  	<div s={12} className="btn waves-effect waves-light" onClick={(event) => this.handleClick(event)}> Iniciar sesión! </div>
+									      	</Row>
+
+									    </form>
+									    
+
+									  </div>
+									  <br/> <br/>
 								  </div>
 							    </div>
 
 
 		      			</h4>
 				   	  </div>
-			    </div>
- 
+			    	</div>
 
+			    	
+			</Parallax>
 		    
 			)
 		

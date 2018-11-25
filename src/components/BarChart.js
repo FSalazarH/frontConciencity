@@ -7,24 +7,44 @@ class BarChart extends Component{
 
 	constructor(props){
 		super(props);
+		var color = this.props.color;
+		var backgroundColor,borderColor;
+		if (color=='green'){
+			backgroundColor = [
+		                '#b9f6ca',
+		                '#b9f6ca',
+		                '#b9f6ca',
+		                '#b9f6ca'
+		            ];
+		    borderColor = [
+		        'rgba(75, 192, 192, 1)',
+		        'rgba(75, 192, 192, 1)',
+		        'rgba(75, 192, 192, 1)',
+		        'rgba(75, 192, 192, 1)'
+		    ];
+		}else{
+			backgroundColor = [
+			            '#8cc0ee',
+			            '#8cc0ee',
+			            '#8cc0ee',
+			            '#8cc0ee'
+			        ];
+			borderColor = [
+			    'rgba(75, 192, 192, 1)',
+			    'rgba(75, 192, 192, 1)',
+			    'rgba(75, 192, 192, 1)',
+			    'rgba(75, 192, 192, 1)'
+			];
+		};
+
 		this.state = {
 			dataSet: {
 		        labels: this.props.labels,
 		        datasets: [{
 		            label: 'Kilos de Residuos',
 		            data: this.props.data,
-		            backgroundColor: [
-		                '#b9f6ca',
-		                '#b9f6ca',
-		                '#b9f6ca',
-		                '#b9f6ca'
-		            ],
-		            borderColor: [
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(75, 192, 192, 1)'
-		            ],
+		            backgroundColor: backgroundColor ,
+		            borderColor : borderColor,
 		            borderWidth: 1
 		        }]
 

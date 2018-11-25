@@ -1,13 +1,15 @@
 import React, {Component } from 'react';
-import BarChart from './BarChart';
 import {Tabs, Tab} from 'react-materialize';
 
 class WasteBox extends Component{
 	render(){
 		var data= this.props.data;
 		const listItems = data.map((element,i) => {
+			
+			var date = new Date(element.collectedAt); 
+ 			var elapsed = date.getDate() + "/ " + date.getMonth(); // Elapsed time in MS
 			return(							
-				<Tab title={element.day} active={i==0} >
+				<Tab title={ elapsed } active={i==0} >
 
 				    	<div className="card">
 				    		<table>
@@ -20,20 +22,20 @@ class WasteBox extends Component{
 
 						        <tbody>
 						          <tr>
-						            <td>Fecha y hora:</td>
-						            <td>  {element.hours} {element.day} </td>
+						            <td>Fecha:</td>
+						            <td>  {element.collectedAt}  </td>
 						          </tr>
 						          <tr>
 						            <td>Cantidad de residuos:</td>
 						            <td> {element.weight} kilos </td>
 						          </tr>
 						          <tr>
-						            <td>Nombre Reciclado: r</td>
-						            <td>{element.recyclerName} </td>
+						            <td>Nombre Reciclado: </td>
+						            <td>{element.recycler.name} </td>
 						          </tr>
 						           <tr>
 						            <td>Aporte ambiental estimado: </td>
-						            <td>15 e kg </td>
+						            <td>{element.weight*2} e kg </td>
 						          </tr>
 						        </tbody>
 						      </table>

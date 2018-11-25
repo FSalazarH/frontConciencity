@@ -3,17 +3,21 @@ import {Switch,Route} from 'react-router-dom';
 
 import Lista from './Lista';
 import About from './About';
-import Chart from './Chart';
+import Residences from './Residences';
+import CommunityManagers  from './CommunityManagers';
+import Logout from './Logout';
 import Login from './Login';
+import Recycler from './Recycler';
 
 
 const Main = () => (
 	<main>
 		<Switch>
-		<Route exact path="/" component={Chart} />
-		<Route exact path="/lista" component={Lista} />
-		<Route exact path="/about" component={About} />
-		<Route exact path="/login" component={Login} />
+		<Route exact path="/Residences" component={Residences} />
+		<Route exact path="/CommunityManagers" component={CommunityManagers } />
+		<Route exact path="/" component={Login} />
+		<Route exact path="/logout" component={Logout} />
+		<Route exact path="/Recycler" component={Recycler} />
 		</Switch>
 	</main>
 

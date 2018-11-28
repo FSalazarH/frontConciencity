@@ -186,7 +186,7 @@ class Recyclers  extends Component{
 							        </CardPanel>
 							  </Col>
 
-							  <Col s={8} m={8} offset="m1">
+							  <Col s={6} m={8} offset="m1">
 							        <CardPanel className="wave-card-2">
 							        	<h4 className="bold center"> Humedad vs Tiempo </h4>
 							        	<LineChart color="blue" data={data} labels = {labels} />

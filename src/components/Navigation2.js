@@ -8,7 +8,7 @@ class Navigation2 extends Component {
 
 
 			<Navbar fixed={true} className="navbar-fixed-top hide-on-med-and-down wave-ocean-2" >
-			 <NavItem> <img  width="150px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
+			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
 			  <NavItem className="right"> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
 			  			<Row>

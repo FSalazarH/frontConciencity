@@ -53,8 +53,7 @@ class CommunityManagers  extends Component{
 						console.log("Error de conexión: ",parsedJson3['error']);
 					}else{
 						this.setState({
-							flootCollection: parsedJson3,
-						  	load: false
+							flootCollection: parsedJson3
 						}); 
 					}
 				})
@@ -65,8 +64,7 @@ class CommunityManagers  extends Component{
 						console.log("Error de conexión: ",parsedJson3['error']);
 					}else{
 						this.setState({
-							flootCollection2: parsedJson3,
-						  	load: false
+							flootCollection2: parsedJson3
 						}); 
 					}
 				})
@@ -251,11 +249,10 @@ class CommunityManagers  extends Component{
 						  </Collection>
 						</SideNav>
 
-						<div className="inSideNav">
-							<br/> <br/> 
-							<Row className="ml-2">
-							  <Col s={6} m={4}>
-							        <CardPanel className="wave-card-1">
+						<div className="inSideNav"> 
+							<Row className="">
+							  <Col s={6} m={4} >
+							        <CardPanel className="box300 wave-card-1">
 							            <Row>
 							            	<Col m={3} s={1} xl={3}>
 							            		<img src= {window.location.origin + '/img/separation.png'}  className="responsive-img"/>
@@ -265,28 +262,23 @@ class CommunityManagers  extends Component{
 							            	</Col>
 							            	<Col s={12}>
 							            		<LineChart data={data} labels={labels}/>
-							            		<br/> <br/>
 							            	</Col>
-
-
 							            </Row>
 							        </CardPanel>
 							  </Col>
 							  <Col s={6} m={4}>
-							        <CardPanel className="wave-card-1">
+							        <CardPanel className="box300 wave-card-1">
 							            <Row>
 							            	<Col m={4} s={1} xl={3}>
 							            		<img src= {window.location.origin + '/img/collector2.png'}  className="responsive-img"/>
 							            	</Col>
 							            	<Col m={8} s={10}>
 							            		<h5> Recolección </h5>
-							            		<br/> <br/> 
+							            		<br/> 
+							            		
 							            	</Col>
-							            	<Col s={4} m={4}>
-							            		<br/> <br/>
-							            		<img  alt="20px"  width="120" src= {window.location.origin + '/img/USUARIO-RECOLECTOR.png'}  className="responsive-img"/>
-							            	</Col>
-							            	<Col s={8} m={8}>
+
+							            	<Col s={12} m={12}>
 							            		<Table>
 												  <tbody>
 												    <tr>
@@ -310,22 +302,16 @@ class CommunityManagers  extends Component{
 							        </CardPanel>
 							  </Col>
 							  <Col s={6} m={4}>
-							        <CardPanel className="wave-card-1">
-
-
-							             <Row>
+							        <CardPanel className="box300 wave-card-1">
+							            <Row>
 							            	<Col m={3} s={1} xl={3}>
-							            		<img  src= {window.location.origin + '/img/recycling.png'}  className="responsive-img"/>
+							            		<img  src= {window.location.origin + '/img/compost.png'}  className="responsive-img"/>
 							            	</Col>
 							            	<Col m={8} s={10}>
 							            		<h5> Transformación </h5>
-							            		<br/> <br/> 
+							            		<br/> <br/> <br/><br/>
 							            	</Col>
-							            	<Col s={4} m={4}>
-							            		<br/> <br/> 
-							            		<img  src= {window.location.origin + '/img/compost.png'}  className="responsive-img"/>
-							            	</Col>
-							            	<Col s={8} m={8}>
+							            	<Col s={12} m={12}>
 							            		<Table>
 												  <tbody>
 												    <tr>
@@ -339,21 +325,19 @@ class CommunityManagers  extends Component{
 
 												  </tbody>
 												</Table>
-												<br/><br/>
 							            	</Col>
 							            </Row>
 							        </CardPanel>
 							  </Col>
-							  <Col s={8} m={8} offset="m1" >
+							  <Col s={12} m={6} >
 							 		 <Card>
-								  		<h4 className="bold center"> Residuos segun piso </h4>
+								  		<p className="bold center"> Residuos segun piso </p>
 								  		<Tabs className='green z-depth-1'>
 										    <Tab title="6 Meses"><BarChart type="horizontal" data={data4} labels={labels4} /></Tab>
 										    <Tab title="3 Mes" active> <BarChart type="horizontal" data={data3} color="green" labels={labels3} /> </Tab>
 										    <Tab title="1 Mes"> <BarChart type="horizontal" data={data2} labels={labels2} /></Tab> 
 										</Tabs>
-								  		
-
+								  	
 							  		</Card>
 							  </Col>
 							</Row>

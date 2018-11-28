@@ -88,7 +88,7 @@ class Login extends Component{
             bgImage='http://goplaceit.s3.amazonaws.com/proyectos/2b2d405b-7349-4e12-a28a-25806f98f23c.jpg'
             strength={180}>
 
-				<div style={{ height: '200px' }} />
+				<div style={{ height: '30px' }} />
 		      		<div className="row">
 		      		<div className="col m8 s12 offset-m2 center">
 		      			<h4 className="bg-card bg-card-user">

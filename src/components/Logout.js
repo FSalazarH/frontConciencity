@@ -6,7 +6,7 @@ class Logout extends Component{
 	render(){
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		if(data){
-			fetch("https://api-conciencity.herokuapp.com//api/" + data['usertype'] +"/logout?access_token=" + data['token'],{
+			fetch("https://api-conciencity.herokuapp.com/api/" + data['usertype'] +"/logout?access_token=" + data['token'],{
 			    headers: {
 			      'Accept': 'application/json',
 			      'Content-Type': 'application/json'

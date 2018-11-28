@@ -22,7 +22,7 @@ class Login extends Component{
 		console.log(data);
 		
 		if(data){
-			fetch("https://api-conciencity.herokuapp.com//api/" + data['usertype'] +"/" + data['id'] + "?access_token=" + data['token'])
+			fetch("https://api-conciencity.herokuapp.com/api/" + data['usertype'] +"/" + data['id'] + "?access_token=" + data['token'])
 			.then(response => response.json())
 			.then(parsedJson => {
 				if(parsedJson['error'] ){
@@ -42,7 +42,7 @@ class Login extends Component{
 		var usertype= this.state.usertype;
 		console.log(this.state);
 
-		fetch("https://api-conciencity.herokuapp.com//api/" + usertype + "/login?[include]=user",
+		fetch("https://api-conciencity.herokuapp.com/api/" + usertype + "/login?[include]=user",
 			{
 			    method: "POST",
 			    body: JSON.stringify(this.state),

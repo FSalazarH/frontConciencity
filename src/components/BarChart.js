@@ -1,4 +1,4 @@
-import {Bar} from 'react-chartjs-2';
+import {Bar,HorizontalBar} from 'react-chartjs-2';
 import React, {Component } from 'react';
 
 
@@ -72,13 +72,27 @@ class BarChart extends Component{
 		var dataSet = this.state.dataSet;
 		var options = this.state.options;
 
-		return(	
-			<div>
 
-				<Bar data={dataSet} options={options}/>
-				
-			</div>
-		)
+		if(this.props.type){
+			return(	
+				<div>
+
+					<HorizontalBar  data={dataSet} options={options}/>
+					
+				</div>
+			)
+
+		}else{
+			return(	
+				<div>
+
+					<Bar data={dataSet} options={options}/>
+					
+				</div>
+			)
+		}
+
+		
 	}
 }
 

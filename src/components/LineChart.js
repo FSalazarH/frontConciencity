@@ -7,15 +7,23 @@ class LineChart extends Component{
 
 render(){
 
+        var backgroundColor = '#c0ec88';
+        var borderColor: '#57a25e';
+
+        if(this.props.color == 'blue'){
+            backgroundColor =  '#40c4ff';
+            borderColor = "#01579b";
+        }
+
 
 		const data= {
-        labels: ["January", "February", "March", "April"],
+        labels: this.props.labels,
         datasets: [{
-        label: "Residuos",
-        backgroundColor: '#c0ec88',
-        borderColor: '#57a25e',
+        label: "humedad",
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
         lineTension: 0,
-        data: [20, 15, 30, 20],
+        data: this.props.data,
         }]
     }
 

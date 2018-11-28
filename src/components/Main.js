@@ -7,7 +7,8 @@ import Residences from './Residences';
 import CommunityManagers  from './CommunityManagers';
 import Logout from './Logout';
 import Login from './Login';
-import Recycler from './Recycler';
+import Recyclers from './Recyclers';
+import InstrResident from './InstrResident';
 
 
 const Main = () => (
@@ -17,7 +18,8 @@ const Main = () => (
 		<Route exact path="/CommunityManagers" component={CommunityManagers } />
 		<Route exact path="/" component={Login} />
 		<Route exact path="/logout" component={Logout} />
-		<Route exact path="/Recycler" component={Recycler} />
+		<Route exact path="/Recyclers" component={Recyclers} />
+		<Route exact path="/InstrResident" component={InstrResident} />
 		</Switch>
 	</main>
 

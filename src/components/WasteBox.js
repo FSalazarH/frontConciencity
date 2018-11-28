@@ -6,8 +6,8 @@ class WasteBox extends Component{
 		var data= this.props.data;
 		const listItems = data.map((element,i) => {
 			
-			var date = new Date(element.collectedAt); 
- 			var elapsed = date.getDate() + "/ " + date.getMonth(); // Elapsed time in MS
+			var date = element.collectedAt.split(" ");
+ 			var elapsed = date[1] + " " + date[2].slice(0, 3);
 			return(							
 				<Tab title={ elapsed } active={i==0} >
 
@@ -31,7 +31,7 @@ class WasteBox extends Component{
 						          </tr>
 						          <tr>
 						            <td>Nombre Reciclado: </td>
-						            <td>{element.recycler.name} </td>
+						            <td>{element.scale.recycler.name} </td>
 						          </tr>
 						           <tr>
 						            <td>Aporte ambiental estimado: </td>

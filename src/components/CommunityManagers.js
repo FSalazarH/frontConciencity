@@ -3,6 +3,9 @@ import Navigation2 from './Navigation2';
 import {Table,CardTitle,SideNav,Icon,Tab, Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
+import moment from 'moment';
+import 'moment/locale/es' 
+
 
 
 class CommunityManagers  extends Component{
@@ -12,75 +15,99 @@ class CommunityManagers  extends Component{
 
 	componentDidMount(){
 
-		
+		moment.locale('es'); 
+
 		/*Redirecciona en caso de necesitarlo:  */
 		var data = JSON.parse(sessionStorage.getItem('getData'));
-		
 		if(data){
-			fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "?access_token=" + data['token'])
-			.then(response => response.json())
-			.then(parsedJson => {
-				if(parsedJson['error'] ){
-					this.props.history.push('/');
-				}else{
-					
-					if(data){
 
-						
-						fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/totalWaste?access_token=" + data['token'])
-						.then(response2 => response2.json())
-						.then(parsedJson2 => {
-							if(parsedJson2['error'] ){
-								console.log("Error de conexión: ",parsedJson2['error']);
-							}else{
-								console.log("for heeere");
-								console.log(parsedJson2);
-
-								/*
-								this.setState({
-								  wasteCollection: parsedJson2['data'][0]['buckets'][0]['wasteCollections']
-								}); 
-								console.log("for heeere2",this.state); */
-							}
-						});
-						
-					}else{
-						console.log("Error de conexión");
+			var sesionRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "?access_token=" + data['token'])
+				.then(response => response.json())			
+				.then(parsedJson => {
+					if(parsedJson['error'] ){
+						console.log("Error de conexión: ",parsedJson['error']);
+						this.props.history.push('/');
 					}
-					
+				});
+
+			var totalRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/totalWaste?access_token=" + data['token'])
+				.then(response2 => response2.json())
+				.then(parsedJson2 => {
+					if(parsedJson2['error'] ){
+						console.log("Error de conexión: ",parsedJson2['error']);
+					}else{
+						this.setState({
+						  wasteCollection: parsedJson2
+						}); 
+
+				
+					}
+				});
+				
 
 
-				}
+			var flootRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/1?access_token=" + data['token'])
+				.then(response3 => response3.json())
+				.then(parsedJson3 => {
+					if(parsedJson3['error'] ){
+						console.log("Error de conexión: ",parsedJson3['error']);
+					}else{
+						this.setState({
+							flootCollection: parsedJson3,
+						  	load: false
+						}); 
+					}
+				})
+			var flootRequest2 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/3?access_token=" + data['token'])
+				.then(response3 => response3.json())
+				.then(parsedJson3 => {
+					if(parsedJson3['error'] ){
+						console.log("Error de conexión: ",parsedJson3['error']);
+					}else{
+						this.setState({
+							flootCollection2: parsedJson3,
+						  	load: false
+						}); 
+					}
+				})
+			
+
+			var flootRequest3 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/6?access_token=" + data['token'])
+				.then(response3 => response3.json())
+				.then(parsedJson3 => {
+					if(parsedJson3['error'] ){
+						console.log("Error de conexión: ",parsedJson3['error']);
+					}else{
+						this.setState({
+							flootCollection3: parsedJson3,
+						  	load: false,
+						  	username: data['username']
+						}); 
+					}
+				})
+			
+
+
+
+			Promise.all([sesionRequest,totalRequest],flootRequest,flootRequest2,flootRequest3).then(function(values){
+			    console.log("The request arrived successfully.");
 			});
 		}else{
 			this.props.history.push('/');
 		}
-		
+
     }
 
 
 	constructor(props){
 		super(props);
 		this.state = {
-			load: false,
-			wasteCollection: [
-				{
-					day: "Piso 1",
-					weight: 30,
-					recyclerName: "Pedrito Tomatito"
-				},
-				{
-					day: "Piso 2",
-					weight: 22,
-					recyclerName: "Pedrito Tomatito"
-				},
-				{
-					day: "Piso 3",
-					weight: 25,
-					recyclerName: "Pedrito Tomatito"
-				}
-
-			]
+			load: true,
+			username: 'Edificio I',
+			wasteCollection: {},
+			flootCollection: [],
+			flootCollection2: [],
+			flootCollection3: []
 		}
 	}
 
@@ -90,146 +117,253 @@ class CommunityManagers  extends Component{
 			'margin-top': '15px',
 		  	'textAlign': 'center'
 		};*/
-		const wasteCollection = this.state.wasteCollection;
+		var wasteCollection  = this.state.wasteCollection;
+		var username  = this.state.username;
+		var flootCollection  = this.state.flootCollection;
+		var flootCollection2 = this.state.flootCollection2;
+		var flootCollection3 = this.state.flootCollection3;
+		var load = this.state.load;
 		var data = [];
 		var labels = [];
+		var data2 = [];
+		var labels2 = [];
+		var data3 = [];
+		var labels3 = [];
+		var data4 = [];
+		var labels4 = [];
 
 
-		// Ordena el json para ser compatible con el grafico
-		for (var i = 0; i < wasteCollection.length; i++) {
-			var register = wasteCollection[i];
-			labels.push(register['day']);
-			data.push(register['weight']);
-		};
+		if(load){
+			return(
+				<div className="center">
+					<br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+					<div class="preloader-wrapper big active">
+					   <div class="spinner-layer spinner-green-only">
+					     <div class="circle-clipper left">
+					       <div class="circle"></div>
+					     </div><div class="gap-patch">
+					       <div class="circle"></div>
+					     </div><div class="circle-clipper right">
+					       <div class="circle"></div>
+					     </div>
+					   </div>
+					 </div>
+					 </div>
+				)
 
-		return(
-				<div>
-					<Navigation2/>
-					<SideNav className="mysidenav">
-					  <Collection >
-							<CollectionItem href='#' active className=" bold">  
+		}else{
 
-								<Icon> home </Icon>
-								<span> Inicio </span>
-							</CollectionItem>
-						  	<CollectionItem href='#'  className="bold">  
-						  		<Icon> note </Icon>
-						  		 <span> Instructivos </span>
-						  	</CollectionItem>
-					  </Collection>
-					</SideNav>
+			// Configura data para el grafico de linea
 
-					<div className="inSideNav">
-						<br/> <br/> 
-						<Row className="ml-2">
-						  <Col s={6} m={4}>
-						        <CardPanel className="wave-card-1">
-						            <Row>
-						            	<Col m={3} s={1} xl={3}>
-						            		<img src= {window.location.origin + '/img/separation.png'}  className="responsive-img"/>
-						            	</Col>
-						            	<Col m={8} s={10}>
-						            		<h5> Separación en origen </h5>
-						            	</Col>
-						            	<Col s={12}>
-						            		<LineChart />
-						            		<br/> <br/>
-						            	</Col>
+			for (var i = 3; i > -1; i--) {
+				var register = wasteCollection[i];
+
+				if(register['date']){
+					var date = moment(register['date']);
+
+					labels.push(date.format('D MMM'));
+				}else{
+					labels.push("day");
+				}
+				if(register['total']){
+					data.push(register['total']);
+				}else{
+					data.push(0);
+				}
+				
+			};
+
+			
+
+			//Inicializamos un json con los pisos
+			var st = '{';
+			for (var i = 0; i < 4 ; i++) {
+				st+= '"' +  (i+1).toString() + '":{"totalWeights":0},';
+			}
+			st = st.slice(0,st.length-1) + '}';
+			var floot = JSON.parse(st);
+			var floot2 = JSON.parse(st);
+			var floot3 = JSON.parse(st);
+
+			var recyclerName = flootCollection[ flootCollection.length-1].recycler;
+			console.log("recyclador",recyclerName);
+
+			//Sumamos los pesos
+			for (var i = 0; i < flootCollection.length-1 ; i++) {
+				var register = flootCollection[i];
+				var f = register['floor'];
+				var w = register['totalWeights'];
+
+				floot[f]['totalWeights'] += w;				
+			};
+			for (var i = 0; i < flootCollection2.length-1 ; i++) {
+				var register = flootCollection2[i];
+				var f = register['floor'];
+				var w = register['totalWeights'];
+
+				floot2[f]['totalWeights'] += w;				
+			};
+			
+			for (var i = 0; i < flootCollection3.length-1 ; i++) {
+				var register = flootCollection3[i];
+				var f = register['floor'];
+				var w = register['totalWeights'];
+
+				floot3[f]['totalWeights'] += w;				
+			};
+
+			// Ordena data para el grafico de barra horizontal
+			for (var i = 4; i > 0 ; i--) {
+
+				labels2.push("Piso " + (i).toString() );
+				data2.push(floot[(i).toString()]['totalWeights']);
+			}
+						// Ordena data para el grafico de barra horizontal
+			for (var i = 4; i > 0 ; i--) {
+
+				labels3.push("Piso " + (i).toString() );
+				data3.push(floot2[(i).toString()]['totalWeights']);
+			}
+						// Ordena data para el grafico de barra horizontal
+			for (var i = 4; i > 0 ; i--) {
+
+				labels4.push("Piso " + (i).toString() );
+				data4.push(floot3[(i).toString()]['totalWeights']);
+			}
 
 
-						            </Row>
-						        </CardPanel>
-						  </Col>
-						  <Col s={6} m={4}>
-						        <CardPanel className="wave-card-1">
-						            <Row>
-						            	<Col m={4} s={1} xl={3}>
-						            		<img src= {window.location.origin + '/img/collector2.png'}  className="responsive-img"/>
-						            	</Col>
-						            	<Col m={8} s={10}>
-						            		<h5> Recolección </h5>
-						            		<br/> <br/> 
-						            	</Col>
-						            	<Col s={4} m={4}>
-						            		<br/> <br/>
-						            		<img  alt="20px"  width="120" src= {window.location.origin + '/img/USUARIO-RECOLECTOR.png'}  className="responsive-img"/>
-						            	</Col>
-						            	<Col s={8} m={8}>
-						            		<Table>
-											  <tbody>
-											    <tr>
-											      <td className="bold">Nombre recolector</td>
-											      <td>Pedro Tomate </td>
-											    </tr>
-											    <tr>
-											      <td className="bold"> Residuos recolectados </td>
-											      <td> 100kg </td>
-											    </tr>
-											    <tr>
-											      <td className="bold">Aporte ambiental</td>
-											      <td> 30 e kg</td>
-											    </tr>
-
-											  </tbody>
-											</Table>
-
-						            	</Col>
-						            </Row>
-						        </CardPanel>
-						  </Col>
-						  <Col s={6} m={4}>
-						        <CardPanel className="wave-card-1">
 
 
-						             <Row>
-						            	<Col m={3} s={1} xl={3}>
-						            		<img  src= {window.location.origin + '/img/recycling.png'}  className="responsive-img"/>
-						            	</Col>
-						            	<Col m={8} s={10}>
-						            		<h5> Transformación </h5>
-						            		<br/> <br/> 
-						            	</Col>
-						            	<Col s={4} m={4}>
-						            		<br/> <br/> 
-						            		<img  src= {window.location.origin + '/img/compost.png'}  className="responsive-img"/>
-						            	</Col>
-						            	<Col s={8} m={8}>
-						            		<Table>
-											  <tbody>
-											    <tr>
-											      <td className="bold">Estado compostera</td>
-											      <td> 75% Humedad </td>
-											    </tr>
-											    <tr>
-											      <td className="bold"> Residuos transformados </td>
-											      <td> 200kg </td>
-											    </tr>
+			return(
+					<div>
+						<Navigation2 name={username}/>
+						<SideNav className="mysidenav">
+						  <Collection >
+								<CollectionItem href='#' active className=" bold">  
 
-											  </tbody>
-											</Table>
-											<br/><br/>
-						            	</Col>
-						            </Row>
-						        </CardPanel>
-						  </Col>
-						  <Col s={8} m={8} offset="m1" >
-						 		 <Card>
-							  		<h4 className="bold center"> Residuos segun piso </h4>
-							  		<Tabs className='green z-depth-1'>
-									    <Tab title="6 Meses"><BarChart data={data} labels={labels} /></Tab>
-									    <Tab title="3 Mes" active> <BarChart data={data} color="green" labels={labels} /> </Tab>
-									    <Tab title="1 Mes"> <BarChart data={data} labels={labels} /></Tab> 
-									</Tabs>
-							  		
+									<Icon> home </Icon>
+									<span> Inicio </span>
+								</CollectionItem>
+							  	<CollectionItem href='#'  className="bold">  
+							  		<Icon> note </Icon>
+							  		 <span> Instructivos </span>
+							  	</CollectionItem>
+						  </Collection>
+						</SideNav>
 
-						  		</Card>
-						  </Col>
-						</Row>
+						<div className="inSideNav">
+							<br/> <br/> 
+							<Row className="ml-2">
+							  <Col s={6} m={4}>
+							        <CardPanel className="wave-card-1">
+							            <Row>
+							            	<Col m={3} s={1} xl={3}>
+							            		<img src= {window.location.origin + '/img/separation.png'}  className="responsive-img"/>
+							            	</Col>
+							            	<Col m={8} s={10}>
+							            		<h5> Separación en origen </h5>
+							            	</Col>
+							            	<Col s={12}>
+							            		<LineChart data={data} labels={labels}/>
+							            		<br/> <br/>
+							            	</Col>
 
+
+							            </Row>
+							        </CardPanel>
+							  </Col>
+							  <Col s={6} m={4}>
+							        <CardPanel className="wave-card-1">
+							            <Row>
+							            	<Col m={4} s={1} xl={3}>
+							            		<img src= {window.location.origin + '/img/collector2.png'}  className="responsive-img"/>
+							            	</Col>
+							            	<Col m={8} s={10}>
+							            		<h5> Recolección </h5>
+							            		<br/> <br/> 
+							            	</Col>
+							            	<Col s={4} m={4}>
+							            		<br/> <br/>
+							            		<img  alt="20px"  width="120" src= {window.location.origin + '/img/USUARIO-RECOLECTOR.png'}  className="responsive-img"/>
+							            	</Col>
+							            	<Col s={8} m={8}>
+							            		<Table>
+												  <tbody>
+												    <tr>
+												      <td className="bold">Nombre recolector</td>
+												      <td> {recyclerName} </td>
+												    </tr>
+												    <tr>
+												      <td className="bold"> Residuos recolectados </td>
+												      <td> 100kg </td>
+												    </tr>
+												    <tr>
+												      <td className="bold">Aporte ambiental</td>
+												      <td> 30 e kg</td>
+												    </tr>
+
+												  </tbody>
+												</Table>
+
+							            	</Col>
+							            </Row>
+							        </CardPanel>
+							  </Col>
+							  <Col s={6} m={4}>
+							        <CardPanel className="wave-card-1">
+
+
+							             <Row>
+							            	<Col m={3} s={1} xl={3}>
+							            		<img  src= {window.location.origin + '/img/recycling.png'}  className="responsive-img"/>
+							            	</Col>
+							            	<Col m={8} s={10}>
+							            		<h5> Transformación </h5>
+							            		<br/> <br/> 
+							            	</Col>
+							            	<Col s={4} m={4}>
+							            		<br/> <br/> 
+							            		<img  src= {window.location.origin + '/img/compost.png'}  className="responsive-img"/>
+							            	</Col>
+							            	<Col s={8} m={8}>
+							            		<Table>
+												  <tbody>
+												    <tr>
+												      <td className="bold">Estado compostera</td>
+												      <td> 75% Humedad </td>
+												    </tr>
+												    <tr>
+												      <td className="bold"> Residuos transformados </td>
+												      <td> 200kg </td>
+												    </tr>
+
+												  </tbody>
+												</Table>
+												<br/><br/>
+							            	</Col>
+							            </Row>
+							        </CardPanel>
+							  </Col>
+							  <Col s={8} m={8} offset="m1" >
+							 		 <Card>
+								  		<h4 className="bold center"> Residuos segun piso </h4>
+								  		<Tabs className='green z-depth-1'>
+										    <Tab title="6 Meses"><BarChart type="horizontal" data={data4} labels={labels4} /></Tab>
+										    <Tab title="3 Mes" active> <BarChart type="horizontal" data={data3} color="green" labels={labels3} /> </Tab>
+										    <Tab title="1 Mes"> <BarChart type="horizontal" data={data2} labels={labels2} /></Tab> 
+										</Tabs>
+								  		
+
+							  		</Card>
+							  </Col>
+							</Row>
+
+						</div>
 					</div>
-				</div>
 
-			);
+				);
+		}
+
 	}
 		
 }

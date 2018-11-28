@@ -58,7 +58,8 @@ class Login extends Component{
 				var data={
 					"token":parsedJson['id'],
 					"id":parsedJson['userId'],
-					"usertype":usertype
+					"usertype":usertype,
+					"username":this.state.username
 				}
 				sessionStorage.setItem('getData', JSON.stringify(data));
 
@@ -77,17 +78,6 @@ class Login extends Component{
 		.catch(error => window.Materialize.toast('Error al intentar conectar con el servidor.', 1500, 'red') );
 		
 	}
-		/*
-		 axios.request({
-		      method: 'post',
-		      url: 'http://localhost:3000/api/Residences/login',
-		      data: requestBody
-		    }).then(response => {
-		           return response.data.message;
-    			console.log("quiaaaas",response.data.message);
-		    }).catch(err => console.log(err));
-			} */
-
 
 	render(){
 
@@ -114,7 +104,8 @@ class Login extends Component{
 									    		<Input s={12} type='select' label="Tipo de Usuario" onChange={this.onChange}  defaultValue='Residences'>
 												    <option value='Residences'>  Residente </option>
 												    <option value='CommunityManagers'> Administrador </option>
-												    <option value='Recycler'> Reciclador </option>
+												    <option value='Recyclers'> Reciclador </option>
+
 												</Input>
 									         	<Input s={12} label="Nombre o Email" id="icon_prefix" type="text" value={this.state.username}  onChange = {(event,newValue) => this.setState({username:newValue})} >
 									       			<Icon className="material-icons iconis prefix"> account_box </Icon>

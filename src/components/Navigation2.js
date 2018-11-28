@@ -18,7 +18,8 @@ class Navigation2 extends Component {
 					  			</span>
 					  		</Col>
 					  		<Col s={8}>
-					  			EcoUrbe I
+					  			&emsp;
+					  			{this.props.name}
 					  		</Col>
 					  	</Row>
 				  }>

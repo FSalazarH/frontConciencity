@@ -6445,7 +6445,6 @@ header .brand-logo img {
   font-family: "Rubik", sans-serif;
   position: relative;
   right: 5px;
-  top: -20px;
   color: #ffffff;
   background-color: #ab47bc;
   margin: 0 -.8em;
@@ -8404,3 +8403,5 @@ tr.group:hover {
 #polar-chart-holder {
   padding-top: 20px;
 }
+
+

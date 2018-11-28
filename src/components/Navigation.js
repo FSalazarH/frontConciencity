@@ -1,16 +1,25 @@
 import React, {Component } from 'react';
-import {Navbar,Button, Dropdown,Row,Col, NavItem, Icon} from 'react-materialize';
+import {Navbar,Button, Dropdown,Row,Col, NavItem, NavLink,Icon} from 'react-materialize';
 
 class Navigation extends Component {
 	render(){
-	return(
+		var act1 = "";
+		var act2 = "";
+		if(this.props.active=='InstrResident'){
+				act2 = "active";
+			}else{
+				act1 = "active";
+			}
 
+		return(
 
+			
+			
+			<Navbar className="wave-forest hide-on-med-and-down" >
 
-			<Navbar className="green darken-2 hide-on-med-and-down" >
-			 <NavItem> <img  width="150px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
-			  <NavItem href='get-started.html' className="active"> Inicio </NavItem>
-			  <NavItem href='get-started.html'> Instructivos </NavItem>
+			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
+			  <NavItem href='Residences' className={act1}> Inicio </NavItem>
+			  <NavItem href='InstrResident' className={act2} > Instructivos </NavItem>
 			  <NavItem className="right"> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
 			  			<Row>
@@ -20,11 +29,11 @@ class Navigation extends Component {
 					  			</span>
 					  		</Col>
 					  		<Col s={8}>
-					  			Dpto 505
+					  			&emsp; {this.props.name}
 					  		</Col>
 					  	</Row>
 				  }>
-					  <NavItem> Perfil </NavItem>
+					  <NavItem > Perfil </NavItem>
 					  <NavItem divider />
 					  <NavItem href="/Logout"> Cerrar Sesión </NavItem>
 				</Dropdown> </NavItem>
@@ -34,8 +43,8 @@ class Navigation extends Component {
 			</Navbar>
 
 
-		)
-	}
+			)
+		}
 }
 
 

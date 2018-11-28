@@ -18,7 +18,7 @@ class Residences extends Component{
 		
 		if(data){
 
-			fetch("http://localhost:3000/api/Residences/" + data['id'] + "?access_token=" + data['token'])
+			fetch("https://api-conciencity.herokuapp.com//api/Residences/" + data['id'] + "?access_token=" + data['token'])
 			.then(response => response.json())
 			.then(parsedJson => {
 				if(parsedJson['error'] ){
@@ -27,7 +27,7 @@ class Residences extends Component{
 
 					if(data){
 
-						fetch("http://localhost:3000/api/Residences/" + data['id'] + "/getLastWasteCollection?access_token=" + data['token'])
+						fetch("https://api-conciencity.herokuapp.com//api/Residences/" + data['id'] + "/getLastWasteCollection?access_token=" + data['token'])
 						.then(response2 => response2.json())
 						.then(parsedJson2 => {
 							if(parsedJson['error'] ){

@@ -21,7 +21,7 @@ class CommunityManagers  extends Component{
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		if(data){
 
-			var sesionRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "?access_token=" + data['token'])
+			var sesionRequest = fetch("https://api-conciencity.herokuapp.com//api/CommunityManagers/" + data['id'] + "?access_token=" + data['token'])
 				.then(response => response.json())			
 				.then(parsedJson => {
 					if(parsedJson['error'] ){
@@ -30,7 +30,7 @@ class CommunityManagers  extends Component{
 					}
 				});
 
-			var totalRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/totalWaste?access_token=" + data['token'])
+			var totalRequest = fetch("https://api-conciencity.herokuapp.com//api/CommunityManagers/" + data['id'] + "/community/residences/totalWaste?access_token=" + data['token'])
 				.then(response2 => response2.json())
 				.then(parsedJson2 => {
 					if(parsedJson2['error'] ){
@@ -46,7 +46,7 @@ class CommunityManagers  extends Component{
 				
 
 
-			var flootRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/1?access_token=" + data['token'])
+			var flootRequest = fetch("https://api-conciencity.herokuapp.com//api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/1?access_token=" + data['token'])
 				.then(response4 => response4.json())
 				.then(parsedJson4 => {
 					if(parsedJson4['error'] ){
@@ -57,7 +57,7 @@ class CommunityManagers  extends Component{
 						}); 
 					}
 				})
-			var flootRequest2 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/3?access_token=" + data['token'])
+			var flootRequest2 = fetch("https://api-conciencity.herokuapp.com//api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/3?access_token=" + data['token'])
 				.then(response5 => response5.json())
 				.then(parsedJson5 => {
 					if(parsedJson5['error'] ){
@@ -70,7 +70,7 @@ class CommunityManagers  extends Component{
 				})
 			
 
-			var flootRequest3 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/6?access_token=" + data['token'])
+			var flootRequest3 = fetch("https://api-conciencity.herokuapp.com//api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/6?access_token=" + data['token'])
 				.then(response6 => response6.json())
 				.then(parsedJson6 => {
 					if(parsedJson6['error'] ){

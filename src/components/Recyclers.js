@@ -21,7 +21,7 @@ class Recyclers  extends Component{
 		if(data){
 			this.setState({'username':data['username']}); 
 
-			var sesionRequest = fetch("http://localhost:3000/api/Recyclers/" + data['id'] + "?access_token=" + data['token'])
+			var sesionRequest = fetch("https://api-conciencity.herokuapp.com//api/Recyclers/" + data['id'] + "?access_token=" + data['token'])
 							.then(response => response.json())			
 							.then(parsedJson => {
 								if(parsedJson['error'] ){
@@ -29,7 +29,7 @@ class Recyclers  extends Component{
 									this.props.history.push('/');
 								}
 							});
-			var timeRequest = fetch("http://localhost:3000/api/Recyclers/" + data['id'] + "/community/composter/slot/sensor/measurementsSensor?access_token=" + data['token'])
+			var timeRequest = fetch("https://api-conciencity.herokuapp.com//api/Recyclers/" + data['id'] + "/community/composter/slot/sensor/measurementsSensor?access_token=" + data['token'])
 							.then(response => response.json())			
 							.then(parsedJson => {
 								if(parsedJson['error'] ){

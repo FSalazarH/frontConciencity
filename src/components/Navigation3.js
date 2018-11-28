@@ -33,6 +33,14 @@ class Navigation3 extends Component {
 						  			</span>
 				  }>
 					   <ul class="collection"  >
+					   		<li class="collection-item avatar">
+						      <img src= {window.location.origin + '/img/bell2.png'} alt="" class="circle"/>
+						      <span class="title">Title</span>
+						      <p>First Line <br/>
+						         Second Line
+						      </p>
+						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+						    </li>
 					      <li class="collection-item">Alvin
 					      	Notificación 1
 					      </li>

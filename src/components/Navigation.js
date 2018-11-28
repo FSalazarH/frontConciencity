@@ -22,16 +22,16 @@ class Navigation extends Component {
 			  <NavItem href='InstrResident' className={act2} > Instructivos </NavItem>
 			  <NavItem className="right"> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
-			  			<Row>
-				  			<Col s={4}>
-				  				<span className="avatar-status">
-					              <img src= {window.location.origin + '/img/residence.png'} class="circle responsive-img"/> 
+
+					  	<div className="bold nobreak">
+					  				<span className="avatar-status mr-2" >
+						              <img src= {window.location.origin + '/img/residence.png'} class="circle responsive-img"/> 
 					  			</span>
-					  		</Col>
-					  		<Col s={8}>
-					  			&emsp; {this.props.name}
-					  		</Col>
-					  	</Row>
+						  			<div className="md-1" style={{'display': 'inline-block'}}>
+						  				 &emsp; {this.props.name}
+						  				 &emsp;
+						  			</div>
+					  	</div>
 				  }>
 					  <NavItem > Perfil </NavItem>
 					  <NavItem divider />

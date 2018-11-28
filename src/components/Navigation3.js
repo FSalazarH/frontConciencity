@@ -25,14 +25,14 @@ class Navigation3 extends Component {
 
 			 
 
-			 <NavItem href="#"  > 
-			  	<Dropdown options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
+			 <NavItem href="#" > 
+			  	<Dropdown   className="box400 ml-2" options={{belowOrigin: true}} trigger={
 					  				<span className="avatar-status mr-2" >
 						              <img  style={{'background':' #e3e302'}} src= {window.location.origin + '/img/bell2.png'} class="circle responsive-img"/> 
 										<small style={{'top': '-30px'}} class="notification-badge">2</small>
 						  			</span>
 				  }>
-					   <ul class="collection">
+					   <ul class="collection"  >
 					      <li class="collection-item">Alvin
 					      	Notificación 1
 					      </li>
@@ -49,13 +49,14 @@ class Navigation3 extends Component {
 			  </NavItem>
 
 			 <NavItem href="#"  > 
-			  	<Dropdown options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
+			  	<Dropdown options={{belowOrigin: true}} trigger={
 			  					<div className="bold nobreak">
 					  				<span className="avatar-status mr-2" >
 						              <img  style={{'background':'#11998e'}} src= {window.location.origin + '/img/USUARIO-RECOLECTOR.png'} class="circle responsive-img"/> 
 						  			</span>
 						  			<div className="md-1" style={{'display': 'inline-block'}}>
-						  				{this.props.name}
+						  			&emsp;
+						  				{this.props.name} &emsp;
 						  			</div>
 					  			</div>
 				  }>

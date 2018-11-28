@@ -77,19 +77,20 @@ class Residences extends Component{
 		if(load){
 
 			return(
-					<div className = "col m3 s12 offset-m3">
-															<div class="preloader-wrapper big active">
-															   <div class="spinner-layer spinner-green-only">
-															     <div class="circle-clipper left">
-															       <div class="circle"></div>
-															     </div><div class="gap-patch">
-															       <div class="circle"></div>
-															     </div><div class="circle-clipper right">
-															       <div class="circle"></div>
-															     </div>
-															   </div>
-															 </div>
-														</div>
+									<div className="center">
+					<br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+					<div class="preloader-wrapper big active">
+					   <div class="spinner-layer spinner-green-only">
+					     <div class="circle-clipper left">
+					       <div class="circle"></div>
+					     </div><div class="gap-patch">
+					       <div class="circle"></div>
+					     </div><div class="circle-clipper right">
+					       <div class="circle"></div>
+					     </div>
+					   </div>
+					 </div>
+					 </div>
 
 				)
 
@@ -164,7 +165,7 @@ class Residences extends Component{
 
 								
 
-								
+
 							</div>
 						</div>
 

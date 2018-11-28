@@ -47,39 +47,39 @@ class CommunityManagers  extends Component{
 
 
 			var flootRequest = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/1?access_token=" + data['token'])
-				.then(response3 => response3.json())
-				.then(parsedJson3 => {
-					if(parsedJson3['error'] ){
-						console.log("Error de conexión: ",parsedJson3['error']);
+				.then(response4 => response4.json())
+				.then(parsedJson4 => {
+					if(parsedJson4['error'] ){
+						console.log("Error de conexión: ",parsedJson4['error']);
 					}else{
 						this.setState({
-							flootCollection: parsedJson3
+							flootCollection: parsedJson4
 						}); 
 					}
 				})
 			var flootRequest2 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/3?access_token=" + data['token'])
-				.then(response3 => response3.json())
-				.then(parsedJson3 => {
-					if(parsedJson3['error'] ){
-						console.log("Error de conexión: ",parsedJson3['error']);
+				.then(response5 => response5.json())
+				.then(parsedJson5 => {
+					if(parsedJson5['error'] ){
+						console.log("Error de conexión: ",parsedJson5['error']);
 					}else{
 						this.setState({
-							flootCollection2: parsedJson3
+							flootCollection2: parsedJson5
 						}); 
 					}
 				})
 			
 
 			var flootRequest3 = fetch("http://localhost:3000/api/CommunityManagers/" + data['id'] + "/community/residences/wasteByFloor/6?access_token=" + data['token'])
-				.then(response3 => response3.json())
-				.then(parsedJson3 => {
-					if(parsedJson3['error'] ){
-						console.log("Error de conexión: ",parsedJson3['error']);
+				.then(response6 => response6.json())
+				.then(parsedJson6 => {
+					if(parsedJson6['error'] ){
+						console.log("Error de conexión: ",parsedJson6['error']);
 					}else{
 						this.setState({
-							flootCollection3: parsedJson3,
-						  	load: false,
-						  	username: data['username']
+							flootCollection3: parsedJson6,
+						  	username: data['username'],
+						  	load: false
 						}); 
 					}
 				})
@@ -87,9 +87,10 @@ class CommunityManagers  extends Component{
 
 
 
-			Promise.all([sesionRequest,totalRequest],flootRequest,flootRequest2,flootRequest3).then(function(values){
-			    console.log("The request arrived successfully.");
+			Promise.all([sesionRequest,totalRequest],flootRequest,flootRequest2,flootRequest3).then(values => { 
+				console.log("request sucefull");
 			});
+
 		}else{
 			this.props.history.push('/');
 		}
@@ -182,9 +183,15 @@ class CommunityManagers  extends Component{
 			var floot = JSON.parse(st);
 			var floot2 = JSON.parse(st);
 			var floot3 = JSON.parse(st);
+			console.log("paso",this.state);
 
-			var recyclerName = flootCollection[ flootCollection.length-1].recycler;
-			console.log("recyclador",recyclerName);
+
+			var recyclerName;
+			if(flootCollection.length>0){
+				recyclerName = flootCollection[ flootCollection.length-1].recycler;
+			}
+
+			
 
 			//Sumamos los pesos
 			for (var i = 0; i < flootCollection.length-1 ; i++) {
@@ -194,6 +201,7 @@ class CommunityManagers  extends Component{
 
 				floot[f]['totalWeights'] += w;				
 			};
+
 			for (var i = 0; i < flootCollection2.length-1 ; i++) {
 				var register = flootCollection2[i];
 				var f = register['floor'];
@@ -309,7 +317,7 @@ class CommunityManagers  extends Component{
 							            	</Col>
 							            	<Col m={8} s={10}>
 							            		<h5> Transformación </h5>
-							            		<br/> <br/> <br/><br/>
+							            		<br/> <br/> 
 							            	</Col>
 							            	<Col s={12} m={12}>
 							            		<Table>
@@ -329,9 +337,9 @@ class CommunityManagers  extends Component{
 							            </Row>
 							        </CardPanel>
 							  </Col>
-							  <Col s={12} m={6} >
+							  <Col s={12} m={8} offset="m2" >
 							 		 <Card>
-								  		<p className="bold center"> Residuos segun piso </p>
+							 		 	<h6 className="bold center"> Residuos segun piso </h6>
 								  		<Tabs className='green z-depth-1'>
 										    <Tab title="6 Meses"><BarChart type="horizontal" data={data4} labels={labels4} /></Tab>
 										    <Tab title="3 Mes" active> <BarChart type="horizontal" data={data3} color="green" labels={labels3} /> </Tab>

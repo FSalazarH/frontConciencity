@@ -77,7 +77,7 @@ class BarChart extends Component{
 			return(	
 				<div>
 
-					<HorizontalBar  data={dataSet} options={options}/>
+					<HorizontalBar width={500} height={200}  data={dataSet} options={options}/>
 					
 				</div>
 			)

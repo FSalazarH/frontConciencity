@@ -106,6 +106,10 @@ class Recyclers  extends Component{
 				data.push(parseFloat(register['value'])*100);			
 			};
 
+			var box1;
+			if(timeCollection.length>0){
+				box1 = timeCollection[timeCollection.length-1]['value'];
+			}
 
 
 			return(
@@ -145,7 +149,7 @@ class Recyclers  extends Component{
 							        		</Col>
 							        		<Col s={6} m={7}>
 							        			<br/> 
-							        			<h3 className="center">   <span> 75% </span> </h3>
+							        			<h3 className="center">   <span>  {box1*100}% </span> </h3>
 							        		</Col>
 
 							        	</Row>

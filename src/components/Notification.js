@@ -4,9 +4,58 @@ import {Button, Dropdown,Row,Col,Icon, Modal} from 'react-materialize';
 
 class  Notification extends Component{
 
+	constructor(props){
+		super(props);
+		this.onChange = this.onChange.bind(this);
+		this.state = {
+			id: "",
+			num: 0,
+			notifications: this.props.data
+		};
+	}
+
+	onChange(val,i,e) {
+		this.setState({'id':val,'num':i});
+ 	 }
+	
+	handleClick(event) {
+		var data = JSON.parse(sessionStorage.getItem('getData'));
+		var id = this.state.id;
+		var num = this.state.num;
+
+
+		var notifications = this.state.notifications;
+		console.log(num,id,notifications);
+
+		fetch("https://api-conciencity.herokuapp.com/api//Recyclers/" + data['id'] + "/notifications/" + id + "?access_token=" + data['token'],
+			{
+			    method: "PUT",
+			    body: JSON.stringify({"solve": true}),
+			     headers:{
+				    'Content-Type': 'application/json'
+				  }
+			}
+		).then(response => response.json())
+		.then(parsedJson => {
+			if(parsedJson){
+				window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
+			}else{
+				notifications.splice(num,1);
+				this.setState({'notifications':notifications });
+				window.Materialize.toast('Alerta confirmada como resuelta!', 1000, 'red');
+			}
+			
+		})
+		.catch(error => window.Materialize.toast('Error al intentar conectar con el servidor.', 1500, 'red') );
+		
+	}
+
+
+
+
 
 	render(){
-		var notifications = this.props.data;
+		var notifications = this.state.notifications;
 		var num = notifications.length;
 		const collection = notifications.map((element,i) => {
 			return(
@@ -28,6 +77,7 @@ class  Notification extends Component{
 							   			<a href="#" className="white-text" 
 							   				onClick={() => { 
 							   					window.$('#foo').modal('open');
+							   					this.onChange(element.id,i);
 											}}>
 							   					<i className="material-icons"> check_box </i>
 
@@ -64,7 +114,10 @@ class  Notification extends Component{
 				    header='Confirmar que la alerta fue resuelta' 
 				    actions={
 				    		<div>
-					    	 	 <Button className="  green darken-1  modal-close"> Confirmar </Button>
+					    	 	 <Button onClick={(event) => { 
+					    	 	 			this.handleClick(event);
+											}} 
+										className="green darken-1  modal-close"> Confirmar </Button>
 					    	 	 	 &emsp;  &emsp;
 					    		 <Button className="  red darken-1 modal-close"> Cancelar </Button>
 					    		 </div>

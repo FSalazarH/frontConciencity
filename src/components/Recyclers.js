@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import Navigation3 from './Navigation3';
-import {Table,CardTitle,SideNav,Icon,Tab, Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
+import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
 import LineChart from './LineChart';
 import moment from 'moment';
 import 'moment/locale/es' 
@@ -35,15 +35,27 @@ class Recyclers  extends Component{
 								if(parsedJson['error'] ){
 									console.log("Error de conexión: ",parsedJson['error']);
 								}else{
-									console.log(parsedJson);
 									this.setState({
-										timeCollection: parsedJson,
+										timeCollection: parsedJson
+									}); 
+								}
+							});
+
+			var notificationRequest = fetch("https://api-conciencity.herokuapp.com/api/Recyclers/" + data['id'] + "/notifications?filter[where][solve]=false&access_token=" + data['token'])
+							.then(response => response.json())			
+							.then(parsedJson => {
+								if(parsedJson['error'] ){
+									console.log("aquii  Error de conexión: ",parsedJson['error']);
+								}else{
+
+									this.setState({
+										notificationCollection: parsedJson,
 									  	load: false
 									}); 
 								}
 							});
 
-			Promise.all([sesionRequest]).then(function(values){
+			Promise.all([sesionRequest,timeRequest,notificationRequest]).then(function(values){
 			    console.log("The request arrived successfully.");
 			});
 
@@ -61,6 +73,7 @@ class Recyclers  extends Component{
 		this.state = {
 			load: true,
 			timeCollection: [],
+			notificationCollection : [],
 			username: "Reciclador"
 		}
 	}
@@ -69,8 +82,8 @@ class Recyclers  extends Component{
 	render(){
 
 		var timeCollection  = this.state.timeCollection ;
+		var notificationCollection  = this.state.notificationCollection ;
 		var username = this.state.username;
-		console.log("aqui",username);
 		var load = this.state.load;
 		var data = [];
 		var labels = [];
@@ -98,7 +111,7 @@ class Recyclers  extends Component{
 
 		}else{
 
-			for (var i = 0; i < timeCollection.length ; i++) {
+			for (var i =  timeCollection.length-1 ; i > -1 ; i--) {
 				var register = timeCollection[i];
 
 				var date = moment(register['date']);
@@ -108,7 +121,7 @@ class Recyclers  extends Component{
 
 			var box1;
 			if(timeCollection.length>0){
-				box1 = timeCollection[timeCollection.length-1]['value'];
+				box1 = timeCollection[0]['value'];
 			}
 
 
@@ -116,7 +129,7 @@ class Recyclers  extends Component{
 
 				<div> 
 
-					<Navigation3 name={username}/>
+					<Navigation3 name={username} notifications={notificationCollection} />
 					<SideNav className="mysidenav2">
 						  <Collection >
 								<CollectionItem href='#' active className="bold">  
@@ -135,6 +148,7 @@ class Recyclers  extends Component{
 						  </Collection>
 					</SideNav>
 
+
 					<div className="inSideNav">
 							<br/> <br/> 
 							<Row className="ml-2">
@@ -145,7 +159,7 @@ class Recyclers  extends Component{
 							        	</div>
 							        	<Row>
 							        		<Col s={6} m={5}>
-							        			<img  width="200px" src= {window.location.origin + '/img/good.png'}  className="responsive-img"/> 
+							        			<img  width="200px" src= {window.location.origin + '/img/green.png'}  className="responsive-img"/> 
 							        		</Col>
 							        		<Col s={6} m={7}>
 							        			<br/> 
@@ -162,7 +176,7 @@ class Recyclers  extends Component{
 							        	</div>
 							        	<Row>
 							        		<Col s={6} m={5}>
-							        			<img  width="200px" src= {window.location.origin + '/img/bad.png'}  className="responsive-img"/> 
+							        			<img  width="200px" src= {window.location.origin + '/img/red.png'}  className="responsive-img"/> 
 							        		</Col>
 							        		<Col s={6} m={7}>
 							        			<br/>
@@ -179,11 +193,11 @@ class Recyclers  extends Component{
 							        	</div>
 							        	<Row>
 							        		<Col s={6} m={5}>
-							        			<img  width="200px" src= {window.location.origin + '/img/good.png'}  className="responsive-img"/> 
+							        			<img  width="200px" src= {window.location.origin + '/img/blue.png'}  className="responsive-img"/> 
 							        		</Col>
 							        		<Col s={6} m={7}>
 							        			<br/>
-							        			<h3 className="center">    <span> 85% </span> </h3>
+							        			<h3 className="center">    <span> 95% </span> </h3>
 							        		</Col>
 
 							        	</Row>

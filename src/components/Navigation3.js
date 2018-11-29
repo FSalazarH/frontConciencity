@@ -1,5 +1,6 @@
 import React, {Component } from 'react';
 import {Navbar,Button, Dropdown,Row,Col, NavItem, Icon} from 'react-materialize';
+import Notification from './Notification';
 
 class Navigation3 extends Component {
 
@@ -23,36 +24,10 @@ class Navigation3 extends Component {
 			<div className="right">
 
 
-			 
+			  
 
 			 <NavItem href="#" > 
-			  	<Dropdown   className="box400 ml-2" options={{belowOrigin: true}} trigger={
-					  				<span className="avatar-status mr-2" >
-						              <img  style={{'background':' #e3e302'}} src= {window.location.origin + '/img/bell2.png'} class="circle responsive-img"/> 
-										<small style={{'top': '-30px'}} class="notification-badge">2</small>
-						  			</span>
-				  }>
-					   <ul class="collection"  >
-					   		<li class="collection-item avatar">
-						      <img src= {window.location.origin + '/img/bell2.png'} alt="" class="circle"/>
-						      <span class="title">Title</span>
-						      <p>First Line <br/>
-						         Second Line
-						      </p>
-						      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-						    </li>
-					      <li class="collection-item">Alvin
-					      	Notificación 1
-					      </li>
-					      <li class="collection-item">Alvin
-					      	Notificación 2
-					      </li>
-					      <li class="collection-item">Alvin
-					      	Notificación 3
-					      </li>
-
-					    </ul>
-				</Dropdown>
+			 	<Notification data={this.props.notifications}/>
 
 			  </NavItem>
 

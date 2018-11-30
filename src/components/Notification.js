@@ -37,7 +37,8 @@ class  Notification extends Component{
 			}
 		).then(response => response.json())
 		.then(parsedJson => {
-			if(parsedJson){
+			if(parsedJson['error']){
+				console.log(parsedJson);
 				window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
 			}else{
 				notifications.splice(num,1);

@@ -18,8 +18,11 @@ class Navigation extends Component {
 			<Navbar className="wave-forest hide-on-med-and-down" >
 
 			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
+			  
+			 
 			  <NavItem href='Residences' className={act1}> Inicio </NavItem>
 			  <NavItem href='InstrResident' className={act2} > Instructivos </NavItem>
+			  
 			  <NavItem className="right"> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
 

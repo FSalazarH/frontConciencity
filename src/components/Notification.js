@@ -59,19 +59,31 @@ class  Notification extends Component{
 		var notifications = this.state.notifications;
 		var num = notifications.length;
 		const collection = notifications.map((element,i) => {
+			console.log(element);
+			var modalData = {};
+
+			if(element.code == 1){
+				modalData['title'] = "Alerta!, Humedad baja";
+				modalData['description'] = "La humedad de la compostera es demaciado baja  Recomendamos regar inmediatamente! ";
+				modalData['image'] = "'/img/red.png'";
+			}else if(element.code == 2){
+				modalData['title'] = "Alerta!, Humedad alta";
+				modalData['description'] = "La humedad de la compostera es demaciado alta  Recomendamos airear la compostera y filtrar algo de agua";
+				modalData['image'] = "'/img/blue.png'";
+			}
+
 			return(
 
 				   		<li className="collection-item white-text red lighten-2">
 
 				   			<div className="row">
 				   				<div className="col s2">
-				   					 <img src= {window.location.origin + '/img/red.png'} height="40" />
+				   					 <img src= {window.location.origin + modalData['image']} height="40" />
 				   				</div>
 				   				<div className="col s8">
-				   					<span className="title white-text bold"> Alerta!, Humedad baja </span>
+				   					<span className="title white-text bold"> {modalData['title']} </span>
 				   					<p> 
-				   					   La humedad de la compostera es demaciado baja
-				   					   Recomendamos regar inmediatamente! 
+				   					   {modalData['description']}
 				   					</p>
 							   </div>
 							   <div className="col s2">

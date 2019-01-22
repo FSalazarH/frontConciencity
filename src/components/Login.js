@@ -28,7 +28,7 @@ class Login extends Component{
 				if(parsedJson['error'] ){
 					console.log("error",parsedJson['error']);
 				}else{
-					this.props.history.push('/' + data['usertype']);
+					this.props.history.push('/' + data['usertype']  + '/home');
 				}
 			});
 		}
@@ -83,10 +83,13 @@ class Login extends Component{
 
 		return(
 
-			<Parallax
-            blur={10}
-            bgImage='http://goplaceit.s3.amazonaws.com/proyectos/2b2d405b-7349-4e12-a28a-25806f98f23c.jpg'
-            strength={180}>
+			
+           	<Parallax  className="back"
+								            blur={8}
+								            bgImage={"http://goplaceit.s3.amazonaws.com/proyectos/2b2d405b-7349-4e12-a28a-25806f98f23c.jpg"} 
+								            strength={10}>
+
+
 
 				<div style={{ height: '30px' }} />
 		      		<div className="row">
@@ -105,6 +108,7 @@ class Login extends Component{
 												    <option value='Residences'>  Residente </option>
 												    <option value='CommunityManagers'> Administrador </option>
 												    <option value='Recyclers'> Reciclador </option>
+												     <option value='Conciencities'> Conciencity </option>
 
 												</Input>
 									         	<Input s={12} label="Nombre o Email" id="icon_prefix" type="text" value={this.state.username}  onChange = {(event,newValue) => this.setState({username:newValue})} >
@@ -131,6 +135,9 @@ class Login extends Component{
 
 		      			</h4>
 				   	  </div>
+			    	</div>
+
+			    	<div style={{'height':'500px'}}>
 			    	</div>
 
 			    	

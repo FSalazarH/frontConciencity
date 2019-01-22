@@ -44,12 +44,13 @@ class InstrResident extends Component{
 
 	render(){
 		var username = this.state.username;
-
+		console.log("for heeere2",this.state);
 		return(
 
 
 			<div>
-				<Navigation name={username} active="InstrResident"/>
+
+				<Navigation name={username} active="InstrResident" name={username}/>
 				<div className="container center">
 					<br/> <br/> <br/>
 					<embed src={window.location.origin + '/residente.pdf'} width="800px" height="2100px" />

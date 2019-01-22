@@ -156,19 +156,22 @@ class CommunityManagers  extends Component{
 
 			for (var i = 3; i > -1; i--) {
 				var register = wasteCollection[i];
+				if(register){
+					if(register['date']){
+						var date = moment(register['date']);
 
-				if(register['date']){
-					var date = moment(register['date']);
+						labels.push(date.format('D MMM'));
+					}else{
+						//Colocar laf fecha anterior desde una semana 
+						labels.push("day");
+					}
+					if(register['total']){
+						data.push(register['total']);
+					}else{
+						data.push(0);
+					}				
+				}
 
-					labels.push(date.format('D MMM'));
-				}else{
-					labels.push("day");
-				}
-				if(register['total']){
-					data.push(register['total']);
-				}else{
-					data.push(0);
-				}
 				
 			};
 
@@ -351,6 +354,7 @@ class CommunityManagers  extends Component{
 							</Row>
 
 						</div>
+						<br/> <br/> <br/> <br/> v <br/>
 					</div>
 
 				);

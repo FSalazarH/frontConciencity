@@ -133,6 +133,7 @@ class Residences extends Component{
 
 													</div>
 
+
 													<div className="col s6 mt-5">
 														<div className="row">
 															<div className="col s4">
@@ -160,6 +161,10 @@ class Residences extends Component{
 			                  			<br/>
 									</div>
 
+									<div className="col m12">
+										<p class="flow-text"> Ultimas 4 recolecciones</p>
+										<br/> <br/> <br/>
+									</div>
 
 									<div className = "col s12 m6">
 										<BarChart data={data} labels={labels} color='green' />

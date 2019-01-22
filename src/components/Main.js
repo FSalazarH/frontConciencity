@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch,Route} from 'react-router-dom';
+import {Switch,Route,Redirect} from 'react-router-dom';
 
 import Lista from './Lista';
 import About from './About';
@@ -9,6 +9,8 @@ import Logout from './Logout';
 import Login from './Login';
 import Recyclers from './Recyclers';
 import InstrResident from './InstrResident';
+import Test from './Test';
+import Conciencities from './Conciencities/Conciencities';
 
 
 const Main = () => (
@@ -16,10 +18,15 @@ const Main = () => (
 		<Switch>
 		<Route exact path="/Residences" component={Residences} />
 		<Route exact path="/CommunityManagers" component={CommunityManagers } />
+		<Route exact path="/Conciencities/home" component={Conciencities } />
+		<Redirect from="/Conciencities" to="/Conciencities/home" />
+		
 		<Route exact path="/" component={Login} />
 		<Route exact path="/logout" component={Logout} />
 		<Route exact path="/Recyclers" component={Recyclers} />
 		<Route exact path="/InstrResident" component={InstrResident} />
+		<Route exact path="/Test" component={Test} />
+
 		</Switch>
 	</main>
 

@@ -151,7 +151,7 @@ class CRUD extends Component{
 
 				var forms= element;
 				if(subname){
-					var fk = subname['fk']};
+					var fk = subname['fk'];
 					var selectForm = this.state.forms[fk];
 					selectForm['default'] = forms[fk];
 					forms[fk] = selectForm;

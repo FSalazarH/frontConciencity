@@ -4,22 +4,22 @@ import {Switch,Route,Redirect} from 'react-router-dom';
 import Lista from './Lista';
 import About from './About';
 import Residences from './Residences';
-import CommunityManagers  from './CommunityManagers';
+import Managers  from './Managers';
 import Logout from './Logout';
 import Login from './Login';
 import Recyclers from './Recyclers';
 import InstrResident from './InstrResident';
 import Test from './Test';
-import Conciencities from './Conciencities/Conciencities';
+import Conciencity from './Conciencity/Conciencity';
 
 
 const Main = () => (
 	<main>
 		<Switch>
 		<Route exact path="/Residences" component={Residences} />
-		<Route exact path="/CommunityManagers" component={CommunityManagers } />
-		<Route exact path="/Conciencities/home" component={Conciencities } />
-		<Redirect from="/Conciencities" to="/Conciencities/home" />
+		<Route exact path="/Managers" component={Managers} />
+		<Route exact path="/Conciencity/home" component={Conciencity } />
+		<Redirect from="/Conciencity" to="/Conciencity/home" />
 		
 		<Route exact path="/" component={Login} />
 		<Route exact path="/logout" component={Logout} />

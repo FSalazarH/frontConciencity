@@ -82,7 +82,7 @@ class Residences extends Component{
 		if(load){
 
 			return(
-									<div className="center">
+					<div className="center">
 					<br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
 					<div className="preloader-wrapper big active">
 					   <div className="spinner-layer spinner-green-only">

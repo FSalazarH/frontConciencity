@@ -132,8 +132,7 @@ class Recyclers  extends Component{
 					<Navigation3 name={username} notifications={notificationCollection} />
 					<SideNav className="mysidenav2">
 						  <Collection >
-								<CollectionItem href='#' active className="bold">  
-
+								<CollectionItem href='#' active className="bold">  	
 									<Icon> home </Icon>
 									<span> Inicio </span>
 								</CollectionItem>

@@ -106,9 +106,9 @@ class Login extends Component{
 									    	<Row>
 									    		<Input s={12} type='select' label="Tipo de Usuario" onChange={this.onChange}  defaultValue='Residences'>
 												    <option value='Residences'>  Residente </option>
-												    <option value='CommunityManagers'> Administrador </option>
+												    <option value='Managers'> Administrador </option>
 												    <option value='Recyclers'> Reciclador </option>
-												     <option value='Conciencities'> Conciencity </option>
+												     <option value='Conciencity'> Conciencity </option>
 
 												</Input>
 									         	<Input s={12} label="Nombre o Email" id="icon_prefix" type="text" value={this.state.username}  onChange = {(event,newValue) => this.setState({username:newValue})} >

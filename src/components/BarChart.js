@@ -1,10 +1,11 @@
 import {Bar,HorizontalBar} from 'react-chartjs-2';
 import React, {Component } from 'react';
+import {Table,CardTitle	,SideNav,Icon,Tab, Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
+
 
 
 
 class BarChart extends Component{
-
 	constructor(props){
 		super(props);
 		var color = this.props.color;
@@ -69,7 +70,7 @@ class BarChart extends Component{
 
 	render(){
 
-		var dataSet = this.state.dataSet;
+
 		var options = this.state.options;
 
 
@@ -77,8 +78,7 @@ class BarChart extends Component{
 			return(	
 				<div>
 
-					<HorizontalBar width={500} height={200}  data={dataSet} options={options}/>
-					
+					<HorizontalBar width={500} height={200}  data={this.state.dataSet} options={options}/>					
 				</div>
 			)
 
@@ -86,11 +86,13 @@ class BarChart extends Component{
 			return(	
 				<div>
 
-					<Bar data={dataSet} options={options}/>
-					
+					<Bar data={this.state.dataSet} redraw={true} options={options}/>
+
 				</div>
 			)
 		}
+
+
 
 		
 	}

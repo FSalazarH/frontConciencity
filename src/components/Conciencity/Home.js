@@ -1,14 +1,8 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
 
-import CRUD from './CRUD';
 
-class Communes extends Component{
 
-	componentWillMount(){
-
-	}
-
+class Home extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
@@ -25,17 +19,19 @@ class Communes extends Component{
 	}
 
 
-
 	render(){
-		var forms = {
-  					"name": "",
-  					"location": [0,0]
-				}
+
 		return(
-			<CRUD name="Communes" forms ={forms} label="place"/>
+
+				
+				<div> Bienvenido usuario Coniencity</div>
 		)
+
+
+
 	}
 
 }
 
-export default Communes;
+
+export default Home;

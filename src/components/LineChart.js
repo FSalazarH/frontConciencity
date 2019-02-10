@@ -19,7 +19,7 @@ render(){
 		const data= {
         labels: this.props.labels,
         datasets: [{
-        label: "humedad",
+        label: this.props.tag,
         backgroundColor: backgroundColor,
         borderColor: borderColor,
         lineTension: 0,

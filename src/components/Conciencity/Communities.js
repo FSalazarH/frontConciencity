@@ -16,11 +16,13 @@ class Communities extends Component{
 			commune: [],
 			delete: 0
 		}
-		var links = ['buckets','composters','recyclers','managers','residences','home','commune','dispositives']
+		var links = ['Buckets','Communes','Communities','Composters','Dispositives','Home','Managers','Recyclers','Residences'];
 		for(var i = 0; i < links.length; i++) {
 			window.$("#" + links[i]).removeClass('active');
 		}
-		window.$("#community").addClass('active');
+		var path = window.location.pathname.split('/');
+		window.$("#" + path[path.length-1]).addClass('active');
+		
 	}
 
 

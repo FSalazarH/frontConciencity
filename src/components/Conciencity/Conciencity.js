@@ -4,9 +4,8 @@ import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Colle
 import LineChart from '../LineChart';
 import moment from 'moment';
 import 'moment/locale/es' 
-
-
 import {BrowserRouter,Router,Route,Switch, Link,NavLink} from 'react-router-dom';
+
 import Recyclers from './Recyclers';
 import Residences from './Residences';
 import Managers from './Managers';
@@ -15,7 +14,7 @@ import Communities from './Communities';
 import Buckets from './Buckets';
 import Composters from './Composters';
 
-import subtest1 from '../subtest1';
+import Home from './Home';
 
 class Conciencity extends Component{
 
@@ -95,10 +94,10 @@ class Conciencity extends Component{
 
 					<BrowserRouter>
 						<div>
-							<SideNav className="mysidenav">
+							<SideNav id="mysidenav" className="mysidenav">
 								  <Collection>
-								  		<NavLink to="/Conciencity/home"  >
-											<CollectionItem  id="home" active={true} className="bold">  
+								  		<NavLink to="/Conciencity/Home"  >
+											<CollectionItem  id="Home" active={true} className="bold">  
 												<Icon> dashboard </Icon>
 												<span> Inicio </span>
 											</CollectionItem>
@@ -106,8 +105,8 @@ class Conciencity extends Component{
 
 
 										<NavLink to="/Conciencity/Communes" >
-										  	<CollectionItem  id="commune" active={false}  className="bold" > 
-											  		<Icon> location_city </Icon>
+										  	<CollectionItem  id="Communes" active={false}  className="bold" > 
+											  		<Icon> place </Icon>
 											  		 <span> Comunas </span>
 										  	</CollectionItem>
 										 </NavLink>
@@ -115,8 +114,8 @@ class Conciencity extends Component{
 
 
 										<NavLink to="/Conciencity/Communities" >
-										  	<CollectionItem  id="community" active={false}  className="bold" > 
-											  		<Icon> home </Icon>
+										  	<CollectionItem  id="Communities" active={false}  className="bold" > 
+											  		<Icon> location_city </Icon>
 											  		 <span> Comunidades </span>
 										  	</CollectionItem>
 
@@ -129,22 +128,22 @@ class Conciencity extends Component{
 											   <CollapsibleItem header='Usuarios' icon='people'>
 											       <Collection>
 											       		<NavLink to="/Conciencity/Users/Residences" >
-												    	  	<CollectionItem  id="residences" className="bold">  
-												    		  		<Icon> people </Icon>
+												    	  	<CollectionItem  id="Residences" className="bold">  
+												    		  		<Icon> person </Icon>
 												    		  		 <span> Residentes </span>
 												    	  	</CollectionItem>
 												      	</NavLink>
 
 												      	<NavLink to="/Conciencity/Users/Recyclers" >
-												    	  	<CollectionItem  id="recyclers" className="bold">  
-												    		  		<Icon> people </Icon>
+												    	  	<CollectionItem  id="Recyclers" className="bold">  
+												    		  		<Icon> person </Icon>
 												    		  		 <span> Recicladores </span>
 												    	  	</CollectionItem>
 												      	</NavLink>
 
 												      	<NavLink to="/Conciencity/Users/Managers" >
-												    	  	<CollectionItem  id="managers" className="bold">  
-												    		  		<Icon> people </Icon>
+												    	  	<CollectionItem  id="Managers" className="bold">  
+												    		  		<Icon> person </Icon>
 												    		  		 <span> Administradores </span>
 												    	  	</CollectionItem>
 												      	</NavLink>
@@ -164,14 +163,14 @@ class Conciencity extends Component{
 											 <CollapsibleItem header='Dispositivos' icon='games'>
 											       <Collection>
 											       		<NavLink to="/Conciencity/Dispositives/Composters" >
-												    	  	<CollectionItem  id="composters" className="bold">  
+												    	  	<CollectionItem  id="Composters" className="bold">  
 												    		  		<Icon> view_agenda </Icon>
 												    		  		 <span> Compostera </span>
 												    	  	</CollectionItem>
 												      	</NavLink>
 
 												      	<NavLink to="/Conciencity/Dispositives/Buckets" >
-												    	  	<CollectionItem  id="buckets" className="bold">  
+												    	  	<CollectionItem  id="Buckets" className="bold">  
 												    		  		<Icon> local_drink </Icon>
 												    		  		 <span> Balde </span>
 												    	  	</CollectionItem>
@@ -189,12 +188,13 @@ class Conciencity extends Component{
 						
 					        <div style={{width: 1000, margin: '0 auto'}}>
 					          
-					          <Switch>
-					              <Route exath path='/Conciencity/home' component={subtest1} />
+					          <Switch >
+					              <Route exath path='/Conciencity/Home' component={Home} />
 					              <Route exath path='/Conciencity/Communes' component={Communes} />
 					              <Route exath path='/Conciencity/Communities' component={Communities} />
 						          <Route exath path='/Conciencity/Users/Recyclers' component={Recyclers} />
 						          <Route exath path='/Conciencity/Users/Residences' component={Residences} />
+						          <Route exath path='/Conciencity/Users/Managers' component={Managers} />
 						          <Route exath path='/Conciencity/Dispositives/Buckets' component={Buckets} />
 						          <Route exath path='/Conciencity/Dispositives/Composters' component={Composters} />
 					          </Switch>

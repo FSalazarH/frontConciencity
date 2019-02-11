@@ -26,7 +26,7 @@ class Navigation3 extends Component {
 
 			  
 
-			 <NavItem href="#" > 
+			 <NavItem > 
 			 	<Notification data={this.props.notifications}/>
 
 			  </NavItem>

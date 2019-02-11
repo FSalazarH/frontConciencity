@@ -160,11 +160,23 @@ class Home extends Component{
 				   }
 
 
+				   var humidityData = {	data:[80,85,70,46,70,40],
+				   						labels: ["13:00","14:00","15:00","16:00","17:00","18:00"]};
+
+				   var perfectHumidity =[];
+				   for (var i = 0; i < humidityData['data'].length; i++) {
+				   		perfectHumidity.push(80);
+				   }
+				   humidityData['perfectHumidity'] = perfectHumidity;
+
+
 				   this.setState({
 						Data:Data,
 						dataSet: dataSet,
 						load:false,
-						recyclerName:recyclerName
+						recyclerName:recyclerName,
+						humidityData: humidityData
+
 					});
 				});
 
@@ -217,7 +229,8 @@ class Home extends Component{
 		    options: options,
 			ChartTittle: "3 meses",
 			ChartTittle0: "Residuos",
-			switch: false
+			switch: false,
+			humidityData:{}
 		}
 
 		var links = ['Instructives','Home'];
@@ -345,19 +358,7 @@ class Home extends Component{
 							            		<br/> <br/> 
 							            	</Col>
 							            	<Col s={12} m={12}>
-							            		<Table>
-												  <tbody>
-												    <tr>
-												      <td className="bold">Estado compostera</td>
-												      <td> 75% Humedad </td>
-												    </tr>
-												    <tr>
-												      <td className="bold"> Residuos transformados </td>
-												      <td> 200kg </td>
-												    </tr>
-
-												  </tbody>
-												</Table>
+							            		<LineChart color="blue" data={this.state.humidityData.data} labels={this.state.humidityData.labels} tag="% Humedad "/>
 							            	</Col>
 							            </Row>
 							        </CardPanel>

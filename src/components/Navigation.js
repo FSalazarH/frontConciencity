@@ -1,15 +1,26 @@
 import React, {Component } from 'react';
-import {Navbar,Button, Dropdown,Row,Col, NavItem, NavLink,Icon} from 'react-materialize';
+import {Navbar,Button, Dropdown,Row,Col, NavItem,Icon} from 'react-materialize';
+import {NavLink} from 'react-router-dom';
 
 class Navigation extends Component {
-	render(){
-		var act1 = "";
-		var act2 = "";
-		if(this.props.active=='InstrResident'){
-				act2 = "active";
-			}else{
-				act1 = "active";
-			}
+
+	changeactives(i){
+		if(i==0){
+			this.setState({act1:"active",act2:""});
+		}else if(i==1){
+			this.setState({act2:"active",act1:""});
+		}
+	}
+
+	constructor(props){
+		super(props);
+		this.state = {
+			act1:"active",
+			act2:""
+		}
+	}
+
+	render(){;
 
 		return(
 
@@ -19,10 +30,13 @@ class Navigation extends Component {
 
 			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
 			  
-			 
-			  <NavItem href='Residences' className={act1}> Inicio </NavItem>
-			  <NavItem href='InstrResident' className={act2} > Instructivos </NavItem>
-			  
+			  <NavLink to="/Residences/Home"  >
+			  	<NavItem  className={this.state.act1} onClick = {(event) => {this.changeactives(0)}} > Inicio </NavItem>
+			  </NavLink>
+
+			  <NavLink to="/Residences/Instructives"  >
+			  	<NavItem className={this.state.act2} onClick = {(event) => {this.changeactives(1)}} > Instructivos </NavItem>
+			  </NavLink>
 			  <NavItem className="right"> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
 

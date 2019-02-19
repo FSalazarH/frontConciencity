@@ -31,7 +31,7 @@ class WasteBox extends Component{
 						          </tr>
 						          <tr>
 						            <td>Nombre Reciclado: </td>
-						            <td>{element.scale.recycler.name} </td>
+						            <td> Reciclador </td>
 						          </tr>
 						           <tr>
 						            <td>Aporte ambiental estimado: </td>

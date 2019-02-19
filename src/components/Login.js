@@ -3,10 +3,7 @@ import {Row,Icon,Input,Toast} from 'react-materialize';
 import { Parallax, Background } from 'react-parallax';
 
 class Login extends Component{
-
-
-
-
+	
 	constructor(props){
 		super(props);
 		this.onChange = this.onChange.bind(this);

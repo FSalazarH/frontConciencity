@@ -27,12 +27,18 @@ render(){
             data: this.props.data,
             }]
         }
+      var show=false;
+      var title="";
+      if(this.props.title){
+        title=this.props.title;
+        show=true;
+      }
 
         var options= {
             responsive: true,
             title: {
-              display: false,
-              text: ''
+              display: show,
+              text: title
             },
             annotation: {
               annotations: [{
@@ -50,13 +56,22 @@ render(){
             }
           }
     
-
-		return(	
-			<div>
-				<Line data={data} options={options}/>
-				
-			</div>
-		)
+      if(this.props.height){
+        return(	
+          <div>
+            <Line data={data} options={options} height={this.props.height} />
+            
+          </div>
+        )
+      }else{
+        return(	
+          <div>
+            <Line data={data} options={options} />
+            
+          </div>
+        )
+      }
+		
 	}
 }
 

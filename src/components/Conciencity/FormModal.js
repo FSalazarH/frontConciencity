@@ -125,7 +125,6 @@ class FormModal extends Component{
 
 						<Input s={12} type='select' label={element} 
 							onChange = {(event,newValue) => {
-
 									// Se utiliza una funcion onChange para que react guarde las modificaciones
 							  		forms[element]['default'] = newValue;
 							  		console.log(newValue);
@@ -177,7 +176,6 @@ class FormModal extends Component{
 
 		return(
 				<Modal
-
 			   		id={label}
 				    header='Formulario Usuario' 
 				    actions={

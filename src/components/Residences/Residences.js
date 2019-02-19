@@ -4,6 +4,7 @@ import Navigation from '.././Navigation';
 import {BrowserRouter,Router,Route,Switch, Link,NavLink} from 'react-router-dom';
 import Home from './Home';
 import Instructives from '../Managers/Instructives';
+import Profile from '../Profile';
 
 
 class Residences extends Component{
@@ -28,7 +29,7 @@ class Residences extends Component{
 		}else{
 			this.props.history.push('/');
 		}
-    }
+  }
 
 	constructor(props){
 		super(props);

@@ -17,7 +17,7 @@ class Home extends Component{
 
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		var wasteCollections = []
-		var requestWasteCollection = fetch("https://api-conciencity.herokuapp.com/api/Residences/" + data['id'] + "/LastWasteCollection?access_token=" + data['token'])
+		var requestWasteCollection = fetch("https://api-conciencity.herokuapp.com/api/Residences/" + data['id'] + "/lastFourWasteCollection?access_token=" + data['token'])
 						.then(response => response.json())
 						.then(parsedJson => {
 							if(parsedJson['error'] ){
@@ -25,8 +25,8 @@ class Home extends Component{
 							}else{
 								console.log("for heeere");
 								console.log(parsedJson);
-								if(parsedJson.data[0].wasteCollections){
-									wasteCollections = parsedJson.data[0].wasteCollections;
+								if(parsedJson.data[0].bucket.wasteCollections){
+									wasteCollections = parsedJson.data[0].bucket.wasteCollections;
 								}
 							}
 						});

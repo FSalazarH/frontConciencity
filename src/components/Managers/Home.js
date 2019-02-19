@@ -20,7 +20,7 @@ class Home extends Component{
 			dataSet.datasets[0].data = JSON.parse(JSON.stringify(Data[i+3]));
 			dataSet.datasets[0].label="Huella de Carbono";
 			console.log(this.state);
-			this.setState({dataSet:dataSet,ChartTittle:title[i],ChartTittle0:"Huellla de Carbono"});
+			this.setState({dataSet:dataSet,ChartTittle:title[i],ChartTittle0:"Huella de Carbono"});
 		}else{
 			dataSet.datasets[0].data = JSON.parse(JSON.stringify(Data[i]));
 			dataSet.datasets[0].label="Kilos de Residuos";
@@ -80,16 +80,8 @@ class Home extends Component{
 				var mount = ["1","3","6"];
 				var Data = [[],[],[]];
 				var Labels = [];
-
-				// Inicializando json para ordenar pisos:
-				var st = '{';
-				for (var i = 0; i < 4 ; i++) {
-					st+= '"' +  (i+1).toString() + '":{"totalWeights":0},';
-				}
-				st = st.slice(0,st.length-1) + '}';
-				var recyclerName ="Reciclador 1";
-
-				var promised = []
+				var recyclerName="";
+				var promised = [];
 
 				function call(index,mou){
 					return(fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/residences/wasteByFloor/"+ mou +"?access_token=" + dataSesion['token'])
@@ -101,30 +93,18 @@ class Home extends Component{
 											}else{
 												var data = [];
 												var labels = [];
-
-												//Obtiene el recyclerName la primera vez
-												console.log(parsedJson);
-												if(parsedJson.length>0 && recyclerName !=""){
-													recyclerName = parsedJson[ parsedJson.length-1].recycler;
+												
+												if(parsedJson.length>0){
+													//Agregar nombre reciclador:
+													recyclerName = "Reciclador";
 												}
-
-												var floot = JSON.parse(st);
-
-												//Sumamos los pesos
-												for (var j = 0; j < parsedJson.length-1 ; j++) {
-													var register = parsedJson[j];
-													var f = register['floor'];
-													var w = register['totalWeights'];
-													floot[f]['totalWeights'] += w;				
-												};
-
 
 												// Ordenamos data para el grafico de barra horizontal
-												for (var j = 4; j > 0 ; j--) {
-													labels.push("Piso " + (j).toString() );
-													data.push(floot[(j).toString()]['totalWeights']);
+												for (var j = 0;j < parsedJson.length; j++) {
+													var register = parsedJson[j];
+													labels.push("Piso " + register['floor']);
+													data.push(parseInt(register['totalWeights']));
 												}
-
 												Data[index]   = data;
 												if(labels.length > Labels.length){
 													Labels = labels;
@@ -141,6 +121,7 @@ class Home extends Component{
 					var promise = call(i,m);
 					promised.push(promise);
 				}
+			
 
 				Promise.all(promised)
 				 .then((results) => {
@@ -207,7 +188,12 @@ class Home extends Component{
 				                ticks: {
 				                    beginAtZero:true
 				                }
-				            }]
+										}],
+										xAxes: [{
+											ticks: {
+													beginAtZero:true
+											}
+									}]
 				        }
 				    };
 		this.state = {
@@ -293,7 +279,7 @@ class Home extends Component{
 				
 			};
 			
-
+			console.log("zqqqqquiiiiiiiiiiiii:  ",this.state);
 			return(		
 					<div>
 						<Row className="">
@@ -304,10 +290,10 @@ class Home extends Component{
 							            		<img src= {window.location.origin + '/img/separation.png'}  className="responsive-img"/>
 							            	</Col>
 							            	<Col m={8} s={10}>
-							            		<h5> Separación en origen </h5>
+							            		<h5> ultimas 4 recolecciones </h5>
 							            	</Col>
 							            	<Col s={12}>
-							            		<LineChart data={data} labels={labels} tag="Kilos "/>
+							            		<LineChart data={data} labels={labels} tag="Kilos" height={200}/>
 							            	</Col>
 							            </Row>
 							        </CardPanel>
@@ -319,8 +305,7 @@ class Home extends Component{
 							            		<img src= {window.location.origin + '/img/collector2.png'}  className="responsive-img"/>
 							            	</Col>
 							            	<Col m={8} s={10}>
-							            		<h5> Recolección </h5>
-							            		<br/> 
+							            		<h5> Informacion recolector </h5>
 							            		
 							            	</Col>
 
@@ -354,11 +339,11 @@ class Home extends Component{
 							            		<img  src= {window.location.origin + '/img/compost.png'}  className="responsive-img"/>
 							            	</Col>
 							            	<Col m={8} s={10}>
-							            		<h5> Transformación </h5>
-							            		<br/> <br/> 
+							            		<h5> Estado compostera </h5>
+							            		<br/>
 							            	</Col>
 							            	<Col s={12} m={12}>
-							            		<LineChart color="blue" data={this.state.humidityData.data} labels={this.state.humidityData.labels} tag="% Humedad "/>
+							            		<LineChart color="blue" height={200} data={this.state.humidityData.data} labels={this.state.humidityData.labels} tag="% Humedad "/>
 							            	</Col>
 							            </Row>
 							        </CardPanel>
@@ -370,10 +355,10 @@ class Home extends Component{
 							 		 	<Button onClick = {(event) => {this.changeMount(0)}} class="waves-effect waves-light "> 
 									  			1 Mes 
 									  	</Button><Button onClick = {(event) => {this.changeMount(1)}} class="waves-effect waves-light "> 
-									  			3 Meces 
+									  			3 Meses 
 									  	</Button>
 									  	<Button onClick = {(event) => {this.changeMount(2)}} class="waves-effect waves-light "> 
-									  			6 Meces 
+									  			6 Meses 
 									  	</Button>
 							 		 	<HorizontalBar width={500} height={200}  data={this.state.dataSet} options={this.state.options} />					 
 								  		<Row>	

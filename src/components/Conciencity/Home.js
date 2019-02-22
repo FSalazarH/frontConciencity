@@ -1,5 +1,7 @@
 import React, {Component } from 'react';
+import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
 
+import CRUD from './CRUD';
 
 
 class Home extends Component{
@@ -20,13 +22,25 @@ class Home extends Component{
 
 
 	render(){
-
+		var forms = {
+			"name": "",
+			"location": [0,0]
+	  	}
+		  var url={'get':'/Communes','other':'/Communes'};
 		return(
-
-				
-				<div> Bienvenido usuario Coniencity</div>
+			<div>		
+				 <nav className="blue darken-4">
+					<div class="nav-wrapper">
+						<div class="col s12">
+							<a href="#!" class="breadcrumb"> Comunas</a>
+							
+						</div>
+					</div>
+				</nav>		
+				<CRUD url={url} forms ={forms} label="place" content={{'title':'Comunidades','http':['/Communes','/Communities']}} />
+		
+			</div>
 		)
-
 
 
 	}

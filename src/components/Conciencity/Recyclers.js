@@ -30,8 +30,10 @@ class Recycles extends Component{
 				"repeat password":""
 			}
 
+			var url={'get':'/Recyclers','other':'/Recyclers' };
+
 		return(
-			<CRUD name="Recyclers" type="User" label="person" forms ={forms} />
+			<CRUD url={url} type="User" label="person" forms ={forms} />
 			)
 	}
 

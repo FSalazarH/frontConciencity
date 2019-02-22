@@ -31,9 +31,11 @@ class Buckets extends Component{
   					"capacity": 0
 				}
 		// Dependencia de Buckets, estas variables se usan para el request y la creación en el formulario del select. 
-		var subname={"name":"Residences","fk":"residenceId","selectName":"username"}
+
+		var url={'get':'/Buckets','other':'/Buckets','dependence':{'url':'/Residences','fk':'residenceId','selectName':'username'} };
+
 		return(
-			<CRUD name="Buckets" subname={subname} forms ={forms} label="local_drink"/>
+			<CRUD url={url} forms ={forms} label="local_drink"/>
 		)
 	}
 

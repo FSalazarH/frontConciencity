@@ -37,10 +37,11 @@ class Residences extends Component{
   					"number":"2",
   					"repeat password":""
 				}
-		// Dependencia de Residences, estas variables se usan para el request y la creación en el formulario del select. 
-		var subname={"name":"Communities","fk":"communityId","selectName":"name"}
+		// url de Residences, estas variables se usan para el request y la creación en el formulario del select. 
+		var url={'get':'/Residences','other':'/Residences','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
+
 		return(
-			<CRUD name="Residences" subname={subname} type="User" forms ={forms} label="person"/>
+			<CRUD url={url} type="User" forms ={forms} label="person"/>
 		)
 	}
 

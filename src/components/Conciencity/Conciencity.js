@@ -11,6 +11,7 @@ import Residences from './Residences';
 import Managers from './Managers';
 import Communes from './Communes';
 import Communities from './Communities';
+import Communities2 from './Home/Communities';
 import Buckets from './Buckets';
 import Composters from './Composters';
 
@@ -189,14 +190,15 @@ class Conciencity extends Component{
 					        <div style={{width: 1000, margin: '0 auto'}}>
 					          
 					          <Switch >
-					              <Route exath path='/Conciencity/Home' component={Home} />
-					              <Route exath path='/Conciencity/Communes' component={Communes} />
-					              <Route exath path='/Conciencity/Communities' component={Communities} />
+					            <Route exath path='/Conciencity/Home' component={Home} />
+					            <Route exath path='/Conciencity/Communes' component={Communes} />
+					            <Route exath path='/Conciencity/Communities' component={Communities} />
 						          <Route exath path='/Conciencity/Users/Recyclers' component={Recyclers} />
 						          <Route exath path='/Conciencity/Users/Residences' component={Residences} />
 						          <Route exath path='/Conciencity/Users/Managers' component={Managers} />
 						          <Route exath path='/Conciencity/Dispositives/Buckets' component={Buckets} />
 						          <Route exath path='/Conciencity/Dispositives/Composters' component={Composters} />
+											<Route exath path="/Conciencity/Commune/:id/:name/Communities" component={Communities2} />
 					          </Switch>
 					        </div>
 				        </div>

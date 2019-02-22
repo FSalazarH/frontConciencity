@@ -31,8 +31,10 @@ class Communes extends Component{
   					"name": "",
   					"location": [0,0]
 				}
+		var url={'get':'/Communes','other':'/Communes'};
+
 		return(
-			<CRUD name="Communes" forms ={forms} label="place"/>
+			<CRUD url={url} forms ={forms} label="place"/>
 		)
 	}
 

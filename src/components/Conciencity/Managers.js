@@ -36,9 +36,9 @@ class Managers extends Component{
   					name: ""
 				}
 		// Dependencia de Managers, estas variables se usan para el request y la creación en el formulario del select. 
-		var subname={"name":"Communities","fk":"communityId","selectName":"name"}
+		var url={'get':'/Managers','other':'/Managers','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
 		return(
-			<CRUD name="Managers" subname={subname} forms ={forms} label="person"/>
+			<CRUD url={url} forms ={forms} label="person"/>
 		)
 	}
 

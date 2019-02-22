@@ -1,13 +1,13 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-import {NavLink} from 'react-router-dom';
+import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem,Collapsible,CollapsibleItem} from 'react-materialize';
+
 import FormModal from './FormModal';
 
-class CRUD extends Component{
+class CollapsibleCrud extends Component{
 
 	deleteClick(){
 		var data = JSON.parse(sessionStorage.getItem('getData')); 
-		fetch("https://api-conciencity.herokuapp.com/api" + this.state.url.other + "?access_token=" + data['token'],
+		fetch("https://api-conciencity.herokuapp.com/api/" + this.state.name + "?access_token=" + data['token'],
 				{
 				    method: 'DELETE',
 				    body: JSON.stringify({'id':this.state.delete}),
@@ -38,20 +38,20 @@ class CRUD extends Component{
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		if(data){
 
-			var url = this.state.url;
-			var dependence = url['dependence'];
+			var name = this.state.name;
+			var subname = this.state.subname;
 
 
 
 			//Obtiene el primer elemento de nombre name:
-			var getRequest = fetch("https://api-conciencity.herokuapp.com/api" + url.get + "?access_token=" + data['token'])
+			var getRequest = fetch("https://api-conciencity.herokuapp.com/api/" + name + "?access_token=" + data['token'])
 							.then(response => response.json())			
 							.then(parsedJson => {
-								console.log("heere  ",url,parsedJson);
+								console.log("heere  ",name,parsedJson);
 								if(parsedJson['error'] ){
 									console.log("Error de conexión: ",parsedJson['error']);
 								}else{
-									if(dependence){
+									if(subname){
 										this.setState({
 											items:parsedJson
 										}); 
@@ -65,8 +65,8 @@ class CRUD extends Component{
 							});
 
 			//Obtiene el segundo elemento de nombre subname:
-			if(dependence){
-				var get2Request = fetch("https://api-conciencity.herokuapp.com/api" + dependence['url'] + "?access_token=" + data['token'])
+			if(subname){
+				var get2Request = fetch("https://api-conciencity.herokuapp.com/api/" + subname['name'] + "?access_token=" + data['token'])
 							.then(response => response.json())			
 							.then(parsedJson => {
 
@@ -74,8 +74,8 @@ class CRUD extends Component{
 								//El siguiente codigo setea las variables para que tengan la siguiente estructura: 
 								//"community":{"options":["Eco Urbe I","Eco Urbe II","Eco Urbe III"],"id":["1","2","3"],"default":"2"}
 								console.log(parsedJson);
-								var name = dependence['selectName'];
-								var fk = dependence['fk'];
+								var name = subname['selectName'];
+								var fk = subname['fk'];
 								var forms = this.state.forms;
 								var id_fk = forms[fk];
 
@@ -109,7 +109,8 @@ class CRUD extends Component{
 			load: true,
 			items: [],
 			delete: 0,
-			url: this.props.url,
+			name: this.props.name,
+			subname: this.props.subname,
 			type: this.props.type,
 			label: this.props.label,
 			forms: this.props.forms
@@ -142,15 +143,15 @@ class CRUD extends Component{
 		}else{
 			
 			var items = this.state.items;
-			var dependence = this.state.url.dependence;
+			var subname = this.state.subname;
 
 			const listItems = Object.keys(items).map((elem,i) => {
 				var element = items[elem];
 				var type=this.state.type;
 
 				var forms= element;
-				if(dependence){
-					var fk = dependence['fk'];
+				if(subname){
+					var fk = subname['fk'];
 					var selectForm = this.state.forms[fk];
 					selectForm['default'] = forms[fk];
 					forms[fk] = selectForm;
@@ -173,86 +174,84 @@ class CRUD extends Component{
 
 					formModalPassword = <FormModal forms={formPassword} label={"FormModalPassword" + (i+1).toString() } method={'post'} />
 				}
+				var collapsible ="";
+				if(this.props.collapsible){
 
-				var content ="";
-				if(this.props.content){
-					var cont = this.props.content;
-					content=
+					collapsible=
 						<div className="">
-
-								<NavLink to= { "/Conciencity/Commune/"+ element.id  +  "/"+ element.name + "/Communities"} >
-									<Button className=" light-blue darken-2" waves='light'> 
-											<Icon right>  keyboard_arrow_right </Icon> {cont.title}
-
-										
-									</Button>
-								</NavLink>
-								
+						
+								<Button waves='light'> Ver comunidades 
+										<Icon right> location_city </Icon>
+										<Icon right>  arrow_forward </Icon>
+								</Button>
 						</div>
 				}
 
-
 				return(
 						
-						  <CollectionItem> 
+							<div>
+								<CollectionItem> 
+										<Row>
 
-						  		<Row>
 
+											<Col s={2}>
+												<i className="medium material-icons"> {label} </i>
+											</Col>
+											<Col s={6}>
+												{element.name}
+											</Col>
+											<Col s={4}>
+												<Button  className=" btn-small btn waves-effect waves-light blue" 
 
-						  			<Col s={2}>
-								  		<i className="medium material-icons"> {label} </i>
-						  			</Col>
-						  			<Col s={6}>
-								  		{element.name}
-						  			</Col>
-						  			<Col s={4}>
-						  				<Button  className=" btn-small btn waves-effect waves-light blue" 
+													onClick={() => { 
+														window.$('#FormModal'+(i+1).toString()).modal('open');
+												}}>
+												
+													<i className="small material-icons"> edit </i>
+												</Button>
+												{bottonPassword }
 
-						  					onClick={() => { 
-							   					window.$('#FormModal'+(i+1).toString()).modal('open');
-											}}>
-						  				
-								  			<i className="small material-icons"> edit </i>
-								  		</Button>
-								  		{bottonPassword }
+												<Button className=" btn-small btn waves-effect waves-light red" 
+													onClick={() => { 
+														window.$('#deleteModal').modal('open');
+														this.setState({'delete':element.id});
+												}}>
+													<i className="small material-icons"> delete </i>
+												</Button>
 
-								  		<Button className=" btn-small btn waves-effect waves-light red" 
-								  			onClick={() => { 
-							   					window.$('#deleteModal').modal('open');
-							   					this.setState({'delete':element.id});
-											}}>
-								  			<i className="small material-icons"> delete </i>
-								  		</Button>
+											<Modal
+													id="deleteModal"
+													header='Eliminar elemento' 
+													actions={
+															<div>
+																<Button onClick={(event) => { 
+																			this.deleteClick(event);
+																		}} 
+																	className="green darken-1  modal-close"> Aceptar </Button>
+																	&emsp;  &emsp;
+																<Button className="red darken-1 modal-close"> Cancelar </Button>
+																</div>
 
-										<Modal
-									   		id="deleteModal"
-										    header='Eliminar elemento' 
-										    actions={
-										    		<div>
-											    	 	 <Button onClick={(event) => { 
-											    	 	 			this.deleteClick(event);
-																	}} 
-																className="green darken-1  modal-close"> Aceptar </Button>
-											    	 	 	 &emsp;  &emsp;
-											    		 <Button className="red darken-1 modal-close"> Cancelar </Button>
-											    		 </div>
+													}  >
+														<Row>
+															<h4> ¿Esta seguro que desea eliminar este elemento? </h4>
+														</Row>   
+											</Modal>
 
-											  }  >
-										  		<Row>
-										  		   <h4> ¿Esta seguro que desea eliminar este elemento? </h4>
-										  		</Row>   
-										</Modal>
-
-						  			</Col>
-										<Col s={12}>
+											</Col>
+											<Col s={12}>
 													<br/> 
-												   {content}
+												   {collapsible}
 											</Col>
 
-						  		</Row>
-						  		{formModalPassword}
-						  		<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'put','http':this.state.url.other}}/>
-						  </CollectionItem>
+
+										</Row>
+										{formModalPassword}
+										<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'put','http':this.state.name}}/>
+								</CollectionItem>
+								
+							</div>
+
 						
 					)
 				}
@@ -264,14 +263,14 @@ class CRUD extends Component{
 			return(
 				<div> 
 					<center>
-						<Button className=" btn-large btn waves-effect waves-light"
+						<Button className="btn-large btn waves-effect waves-light"
 							onClick={() => { 
 								window.$('#FormModalNewUser').modal('open');
 							}}>
 						
 							<i className="medium material-icons"> {label + '_add'} </i>
 						</Button>
-						<FormModal forms={newform} label={"FormModalNewUser"} method={{"type":"post","http":this.state.url.other}}/>
+						<FormModal forms={newform} label={"FormModalNewUser"} method={{"type":"post","http":this.state.name}}/>
 					</center>
 					<Collection>
 						{listItems}
@@ -286,4 +285,4 @@ class CRUD extends Component{
 
 }
 
-export default CRUD;
+export default CollapsibleCrud;

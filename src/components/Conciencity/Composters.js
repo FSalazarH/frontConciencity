@@ -31,9 +31,10 @@ class Composters extends Component{
   					"type": ""
 				}
 		// Dependencia de Composters, estas variables se usan para el request y la creación en el formulario del select. 
-		var subname={"name":"Communities","fk":"communityId","selectName":"name"}
+		var url={'get':'/Composters','other':'/Composters','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
+
 		return(
-			<CRUD name="Composters" subname={subname} forms ={forms} label="view_agenda"/>
+			<CRUD url={url} forms ={forms} label="view_agenda"/>
 		)
 	}
 

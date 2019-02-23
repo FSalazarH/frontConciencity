@@ -1,18 +1,14 @@
 import React from 'react';
 import {Switch,Route,Redirect} from 'react-router-dom';
 
-import Lista from './Lista';
-import About from './About';
-
-
 import Logout from './Logout';
 import Login from './Login';
 import Recyclers from './Recyclers';
-import InstrResident from './InstrResident';
 import Test from './Test';
 import Conciencity from './Conciencity/Conciencity';
 import Managers  from './Managers/Managers';
 import Residences from './Residences/Residences';
+
 
 
 const Main = () => (

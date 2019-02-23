@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import {Button, Dropdown,Row,Col,Icon, Modal} from 'react-materialize';
+import {Button, Dropdown, Modal} from 'react-materialize';
 
 
 class  Notification extends Component{

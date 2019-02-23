@@ -1,7 +1,5 @@
 import React, {Component } from 'react';
-import Navigation from './Navigation';
-
-import {BrowserRouter,Router,Route, Link} from 'react-router-dom';
+import {BrowserRouter,Route, Link} from 'react-router-dom';
 import subtest1 from './subtest1';
 import subtest2 from './subtest2';
 

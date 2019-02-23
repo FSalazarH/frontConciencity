@@ -1,6 +1,4 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-
 import CRUD from './CRUD';
 
 class Buckets extends Component{

@@ -1,72 +1,87 @@
 import React, {Component } from 'react';
 import {Table,CardTitle,Input,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-import FormModal from './Conciencity/FormModal';
 
-class Profile extends Component{
+class forms extends Component{
 
     componentDidMount(){
-        /*
-        Aqui agregar fetch para obtener datos:
+
+        //fetch para obtener datos:
 		var data = JSON.parse(sessionStorage.getItem('getData'));
-		var forms = []
-		var requestWasteCollection = fetch("https://api-conciencity.herokuapp.com/api/" + data['usertype'] + "/" + data['id'] + "/GETPROFILE?access_token=" + data['token'])
+		var forms = {};
+		console.log("FOR HERE",data)
+		var requestSession = fetch("https://api-conciencity.herokuapp.com/api/" + data['usertype'] + "/" + data['id'] + "?access_token=" + data['token'])
 						.then(response => response.json())
 						.then(parsedJson => {
 							if(parsedJson['error'] ){
 								console.log("Error de conexión");
 							}else{
-								console.log(parsedJson);
-								if(parsedJson.data[0].bucket.wasteCollections){
-									forms = parsedJson.['data'];
+								console.log("AQUI",parsedJson);
+								if(parsedJson){
+									forms = parsedJson;
 								}
 							}
 						});
 
-		Promise.all([request])
+		Promise.all([requestSession])
 				 .then((results) => {
 				    console.log("Llamadas realizadas correctamente")
 				    this.setState({
 						  forms: forms,
-						  load: false
+						  load: true
 						});
                     });
-        */
 	}
 
     constructor(props){
         super(props);
-        
-        var forms = {
-            "floor": "string",
-            "number": "string",
-            "rut": "string",
-            "name": "string",
-            "username": "string",
-            "email": "string",
-            "communityId": "string"
-          }
-
 		this.state = {
-			forms:forms,
-			username: "Residente",
-			load: true
+			forms:{},
+			load: false
         }
 	}
 
 	render(){
-        var forms=this.state.forms;
+		var dict = {'floor':'Piso','number':'Numero','rut':'Rut','name':'Nombre','username':'Nombre de Usuario','email':'Correo Electronico'};
+		var forms=this.state.forms;
+		const listItems = Object.keys(forms).map((element,i) => {
+			if(dict[element]){
+				return(
+					<Input style={{'color':'black'}} disabled s={6} label={dict[element]} 
+								onChange = {(event,newValue) => {
+	
+										// Se utiliza una funcion onChange para que react guarde las modificaciones
+										  forms[element] = newValue;
+										  this.setState({forms:forms });
+										  }	
+									  } 
+								  defaultValue={forms[element]} 
+							  /> 
+	
+				)
+			}
+			
+		});
+
+       
 		return (
 			<div>
-				<h1> Cerrando </h1> 
-                <Button  className=" btn-small btn waves-effect waves-light blue" 
-					onClick={() => { 
-						window.$('#FormProfile').modal('open');
-                        }} >
-                    Editar Perfil 
-                </Button>
-                <FormModal forms={forms} label={"FormProfile"} method={{"type":"post","http":"/Conciencity"}}/>
+				<Row>
+					<Col s={12}> <br/> <br/> <br/>  </Col>
+					<Col s={4}>
+						<img  src= {window.location.origin + '/img/user.png'}  className="responsive-img"/> 
+					</Col>
+					<Col s={8}>
+						<Card>
+							<Row>
+								{listItems}
+							</Row>
+						</Card>
+					</Col>
+				</Row>
+				
+				
 			</div> 
 			)
 	}
 }
-export default Profile;
+export default forms;

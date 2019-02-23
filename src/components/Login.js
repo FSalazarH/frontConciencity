@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
-import {Row,Icon,Input,Toast} from 'react-materialize';
-import { Parallax, Background } from 'react-parallax';
+import {Row,Icon,Input} from 'react-materialize';
+import { Parallax} from 'react-parallax';
 
 class Login extends Component{
 	

@@ -9,7 +9,7 @@ class WasteBox extends Component{
 			var date = element.collectedAt.split(" ");
  			var elapsed = date[1] + " " + date[2].slice(0, 3);
 			return(							
-				<Tab title={ elapsed } active={i==0} >
+				<Tab title={ elapsed } active={i===0} >
 
 				    	<div className="card">
 				    		<table>

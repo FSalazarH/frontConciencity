@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,Input,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
+import {Input,Modal,Button,Row} from 'react-materialize';
 
 
 class FormModal extends Component{
@@ -9,8 +9,7 @@ class FormModal extends Component{
 
 	handleClick(event) {
 
-
-		var data = JSON.parse(sessionStorage.getItem('getData')); 
+		var data = JSON.parse(sessionStorage.getItem('getData'));
 		if(data){
 	
 				var forms = this.state.forms;
@@ -18,10 +17,10 @@ class FormModal extends Component{
 
 				//En caso de tener contrasena:
 				if(forms['password']){
-					if(forms['password'] != forms['repeat password']) {
+					if(forms['password'] !== forms['repeat password']) {
 						window.Materialize.toast('Las contrasenas no coinciden', 1000, 'red');
 						send=false;
-					}else if(forms['password'] == " " || forms['password'] == "" ){
+					}else if(forms['password'] === " " || forms['password'] === "" ){
 						window.Materialize.toast('contrasena invalida', 1000, 'red');
 						send=false;
 					}else{
@@ -34,17 +33,22 @@ class FormModal extends Component{
 					var method = this.state.method; 
 					var select = this.state.select;
 					if(select){
-						console.log(select);
 						var defaul = forms[select]['default'];
 						forms[select] = defaul;
 
 					}
+					var url="https://api-conciencity.herokuapp.com/api/" + method['http'];
+					if(method['type'] == "patch"){
+						url=url+"/" + forms.id;
+					}
+					console.log(select,"AQUI",url)
 
-					fetch("https://api-conciencity.herokuapp.com/api/" + method['http'] + "?access_token=" + data['token'],
+					fetch(url + "?access_token=" + data['token'],
 							{
 							    method: method['type'],
 							    body: JSON.stringify(forms),
 							     headers:{
+										'Accept': 'application/json',
 								    'Content-Type': 'application/json'
 								  }
 							}
@@ -54,9 +58,11 @@ class FormModal extends Component{
 								console.log(parsedJson);
 								window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
 							}else{
-
-								//notifications.splice(num,1);
-								//this.setState({'notifications':notifications });
+								console.log('creadooo',parsedJson);
+								var functions=this.props.function;
+								if(functions){
+									functions(parsedJson);
+								} 
 								window.Materialize.toast('Elemento creada correctamente', 1000, 'red');
 							}	
 						})

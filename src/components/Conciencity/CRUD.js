@@ -1,16 +1,17 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
+import {NavItem,Dropdown,Icon, Modal,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
 import {NavLink} from 'react-router-dom';
 import FormModal from './FormModal';
 
 class CRUD extends Component{
 
-	deleteClick(){
+	deleteClick(e){
+		var deleted = this.state.delete;
 		var data = JSON.parse(sessionStorage.getItem('getData')); 
-		fetch("https://api-conciencity.herokuapp.com/api" + this.state.url.other + "?access_token=" + data['token'],
+		fetch("https://api-conciencity.herokuapp.com/api" + this.state.url.other + "/" +  deleted.id  + "?access_token=" + data['token'],
 				{
 				    method: 'DELETE',
-				    body: JSON.stringify({'id':this.state.delete}),
+				    body: JSON.stringify({}),
 				     headers:{
 					    'Content-Type': 'application/json'
 					  }
@@ -24,6 +25,11 @@ class CRUD extends Component{
 
 					//notifications.splice(num,1);
 					//this.setState({'notifications':notifications });
+				
+					var items = this.state.items;
+					items.splice(deleted.index, 1);
+					this.setState({items:items});
+
 					window.Materialize.toast('Elemento eliminado correctamente', 1000, 'red');
 				}
 				
@@ -31,6 +37,13 @@ class CRUD extends Component{
 			.catch(error => window.Materialize.toast('Error al intentar conectar con el servidor.', 1500, 'red') );
 			
 		}
+
+	UpdateItems(value){
+		var items = this.state.items;
+		items.unshift(value);
+		this.setState({items:items});
+
+	}
 	
 	componentWillMount(){
 
@@ -113,7 +126,8 @@ class CRUD extends Component{
 			type: this.props.type,
 			label: this.props.label,
 			forms: this.props.forms
-		}	
+		};
+		this.UpdateItems = this.UpdateItems.bind(this);
 	}
 
 	render(){
@@ -161,8 +175,8 @@ class CRUD extends Component{
 
 				var bottonPassword = "";
 				var formModalPassword ="";
-				if(type == 'User'){
-					bottonPassword = <Button  className=" btn-small btn waves-effect waves-light orange" 
+				if(type === 'User'){
+					bottonPassword = <Button  className=" btn-small btn waves-effect waves-light orange darken-1" 
 
 							  					onClick={() => { 
 								   					window.$('#FormModalPassword'+(i+1).toString()).modal('open');
@@ -177,11 +191,12 @@ class CRUD extends Component{
 				var content ="";
 				if(this.props.content){
 					var cont = this.props.content;
-					content=
+					if(cont.type){
+						content=
 						<div className="">
 
-								<NavLink to= { "/Conciencity/Commune/"+ element.id  +  "/"+ element.name + "/Communities"} >
-									<Button className=" light-blue darken-2" waves='light'> 
+								<NavLink to= { "/Conciencity" + cont.http[0] +  "/"+ element.id  +  "/"+ element.name + cont.http[1]} >
+									<Button className=" light-blue darken-4" waves='light'> 
 											<Icon right>  keyboard_arrow_right </Icon> {cont.title}
 
 										
@@ -189,6 +204,48 @@ class CRUD extends Component{
 								</NavLink>
 								
 						</div>
+					}else{
+						var path = window.location.pathname;
+						content=
+						<Row>
+							<Col s={3}>
+								<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} 
+													trigger={
+															<Button className=" green darken-2" waves='light'> 
+																	<Icon right>  people </Icon> Usuarios
+															</Button>
+													}>	
+													
+														<NavLink to= { path + "/" + element.id  +  "/"+ element.name + '/Residences'} >
+															<NavItem>Residente </NavItem>		
+														</NavLink>
+														<NavLink to= { path + "/" + element.id  +  "/"+ element.name + '/Recyclers'} >
+															<NavItem> Reciclador </NavItem>
+														</NavLink>
+														<NavLink to= { path + "/" + element.id  +  "/"+ element.name + '/Managers'} >
+															<NavItem> Administrador </NavItem>
+														</NavLink>
+								</Dropdown>
+							</Col>
+							<Col s={3}>
+								<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} 
+													trigger={
+															<Button className=" teal darken-2" waves='light'> 
+																	<Icon right>  games </Icon> Dispositivos
+															</Button>
+													}>
+														<NavLink to= { path + "/" + element.id  +  "/"+ element.name + '/Composters'} >
+															<NavItem> Composteras </NavItem>
+														</NavLink>
+														<NavLink to= { path + "/" + element.id  +  "/"+ element.name + '/Buckets'} >
+															<NavItem> Baldes </NavItem>
+														</NavLink>
+								</Dropdown>
+							</Col>
+						</Row>
+					}
+
+					
 				}
 
 
@@ -219,7 +276,7 @@ class CRUD extends Component{
 								  		<Button className=" btn-small btn waves-effect waves-light red" 
 								  			onClick={() => { 
 							   					window.$('#deleteModal').modal('open');
-							   					this.setState({'delete':element.id});
+							   					this.setState({'delete':{'id':element.id,index:i}});
 											}}>
 								  			<i className="small material-icons"> delete </i>
 								  		</Button>
@@ -251,7 +308,7 @@ class CRUD extends Component{
 
 						  		</Row>
 						  		{formModalPassword}
-						  		<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'put','http':this.state.url.other}}/>
+						  		<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'patch','http':this.state.url.other}}/>
 						  </CollectionItem>
 						
 					)
@@ -271,7 +328,7 @@ class CRUD extends Component{
 						
 							<i className="medium material-icons"> {label + '_add'} </i>
 						</Button>
-						<FormModal forms={newform} label={"FormModalNewUser"} method={{"type":"post","http":this.state.url.other}}/>
+						<FormModal forms={newform} label={"FormModalNewUser"} method={{"type":"post","http":this.state.url.other}} function={this.UpdateItems} />
 					</center>
 					<Collection>
 						{listItems}

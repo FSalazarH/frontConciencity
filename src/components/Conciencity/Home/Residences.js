@@ -1,10 +1,9 @@
 import React, {Component } from 'react';
 import {Breadcrumb,MenuItem} from 'react-materialize';
-import CRUD from '.././CRUD';
 import {Link} from 'react-router-dom';
+import CRUD from '.././CRUD';
 
-
-class Communities extends Component{
+class Residences extends Component{
 
 	componentWillMount(){
 
@@ -15,7 +14,9 @@ class Communities extends Component{
 		this.state = {
 			load: true,
 			name:this.props.match.params.name,
-			id:this.props.match.params.id
+			id:this.props.match.params.id,
+			name2:this.props.match.params.name2,
+			id2:this.props.match.params.id2
 
 		}
 		var links = ['Buckets','Communes','Communities','Composters','Dispositives','Home','Managers','Recyclers','Residences'];
@@ -24,27 +25,27 @@ class Communities extends Component{
 		}
 		var path = window.location.pathname.split('/');
 		window.$("#" + path[path.length-1]).addClass('active');
-		
 	}
 
 
 
 	render(){
 		var forms = {
-  					address: "",
-  					communeId: "",
-  					dateCollection: "",
-  					floorsQuantity: 1,
-  					image: "",
-  					name: ""
+  					email: "",
+  					name: "",
+  					rut: "",
+  					username: "",
+  					password: "",
+  					floor: "1",
+  					"number":"2",
+  					"repeat password":""
 				}
-		// Dependencia de Communities, estas variables se usan para el request y la creación en el formulario del select.
-		var http= '/Communes/' + this.state.id + '/Communities';
-		var url={'get':http,'other':'/Communities','dependence':{'url':'/Communes','fk':'communeId','selectName':'name'} };
+		// url de Residences, estas variables se usan para el request y la creación en el formulario del select. 
+		var url={'get':'/Communities/' +this.state.id2 + '/Residences','other':'/Residences','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
 
 		return(
-			<div>
-				 <Breadcrumb className="blue darken-4">
+            <div>
+				<Breadcrumb className="blue darken-4">
 					<MenuItem>
 						<Link to="/Conciencity/Home" >
 							<a class="breadcrumb"> Comunas </a> 	
@@ -55,12 +56,20 @@ class Communities extends Component{
 							<a class="breadcrumb"> {this.state.name} </a>
 						</Link>
 					</MenuItem>
+					<MenuItem>
+						Comunidad {this.state.name2}
+					</MenuItem>
+					<MenuItem>
+						Residentes
+					</MenuItem>
 				</Breadcrumb>
-				<CRUD url={url} forms ={forms} type="User" content={{'title':'','http':['/Commune','/Communities'],'type':false}} label="location_city"/>
-			</div>
+
+                <CRUD url={url} type="User" forms ={forms} label="person"/>
+            </div>
+			
 		)
 	}
 
 }
 
-export default Communities;
+export default Residences;

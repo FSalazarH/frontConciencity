@@ -79,8 +79,9 @@ class Residences extends Component{
 										<div style={{width: 1000, margin: '0 auto'}}>
 								          
 								          <Switch>
-								              <Route exath path='/Residences/Home' component={Home} />
-								              <Route exath path='/Residences/Instructives' component={Instructives} />
+								              <Route exact path='/Residences/Home' component={Home} />
+								              <Route exact path='/Residences/Instructives' component={Instructives} />
+															<Route exact path="/Residences/Profile" component={Profile} />
 								          </Switch>
 								        </div>
 								</div>

@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import {Navbar,Button, Dropdown,Row,Col, NavItem,Icon} from 'react-materialize';
+import {Navbar, Dropdown, NavItem} from 'react-materialize';
 import {NavLink} from 'react-router-dom';
 
 class Navigation extends Component {
@@ -21,7 +21,7 @@ class Navigation extends Component {
 	}
 
 	render(){;
-
+		var data = JSON.parse(sessionStorage.getItem('getData'));
 		return(
 
 			
@@ -50,7 +50,8 @@ class Navigation extends Component {
 						  			</div>
 					  	</div>
 				  }>
-					  <NavItem > Perfil </NavItem>
+					  
+					  <NavLink to={"/"+data.usertype+"/Profile"}> <NavItem > Perfil </NavItem>  </NavLink>
 					  <NavItem divider />
 					  <NavItem href="/Logout"> Cerrar Sesión </NavItem>
 				</Dropdown> </NavItem>

@@ -1,6 +1,4 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-
 import CRUD from './CRUD';
 
 class Managers extends Component{
@@ -28,13 +26,13 @@ class Managers extends Component{
 
 	render(){
 		var forms = {
-  					address: "",
-  					communeId: "",
-  					dateCollection: "",
-  					floorsQuantity: 1,
-  					image: "",
-  					name: ""
-				}
+				email: "",
+				name: "",
+				rut: "",
+				username: "",
+				password: "",
+				"repeat password":""
+		}
 		// Dependencia de Managers, estas variables se usan para el request y la creación en el formulario del select. 
 		var url={'get':'/Managers','other':'/Managers','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
 		return(

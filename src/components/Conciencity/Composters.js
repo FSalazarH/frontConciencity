@@ -1,6 +1,4 @@
 import React, {Component } from 'react';
-import {Table,CardTitle,SideNav,Icon,Tab, Modal,Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-
 import CRUD from './CRUD';
 
 class Composters extends Component{
@@ -32,6 +30,9 @@ class Composters extends Component{
 				}
 		// Dependencia de Composters, estas variables se usan para el request y la creación en el formulario del select. 
 		var url={'get':'/Composters','other':'/Composters','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
+		//Agregar get
+		//var url={'get':'/Communities/' +this.state.id2 + '/Residences','other':'/Residences','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
+
 
 		return(
 			<CRUD url={url} forms ={forms} label="view_agenda"/>

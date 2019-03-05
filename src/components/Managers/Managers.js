@@ -1,8 +1,8 @@
 import React, {Component } from 'react';
 import Navigation2 from '.././Navigation2';
-import {BrowserRouter,Router,Route,Switch, Link,NavLink} from 'react-router-dom';
-import {Table,CardTitle	,SideNav,Icon,Tab, Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem} from 'react-materialize';
-
+import {BrowserRouter,Route,Switch,NavLink} from 'react-router-dom';
+import {SideNav,Icon,Collection,CollectionItem} from 'react-materialize';
+import Profile from '../Profile';
 
 import Home from './Home';
 import Instructives from './Instructives';
@@ -99,6 +99,7 @@ class Managers  extends Component{
 										  	</CollectionItem>
 									  	</NavLink>
 								  </Collection>
+									
 								</SideNav>
 
 								<div style={{width: 1000, margin: '0 auto'}}>
@@ -106,6 +107,7 @@ class Managers  extends Component{
 						          <Switch>
 						              <Route exath path='/Managers/Home' component={Home} />
 						              <Route exath path='/Managers/Instructives' component={Instructives} />
+													<Route exath path='/Managers/Profile' component={Profile} />
 						          </Switch>
 						        </div>
 					        </div>

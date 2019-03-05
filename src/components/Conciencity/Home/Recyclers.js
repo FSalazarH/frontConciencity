@@ -40,7 +40,7 @@ class Recyclers extends Component{
         }
 
 		// url de Residences, estas variables se usan para el request y la creación en el formulario del select. 
-		var url={'get':'/Communities/' +this.state.id2 + '/Recyclers','other':'/Recyclers'};
+		var url={'get':'/Communities/' +this.state.id2 + '/Recyclers','other':'/Recyclers','filter':'recycler'};
 
 		return(
             <div>

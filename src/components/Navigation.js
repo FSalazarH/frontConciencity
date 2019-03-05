@@ -5,39 +5,42 @@ import {NavLink} from 'react-router-dom';
 class Navigation extends Component {
 
 	changeactives(i){
-		if(i==0){
-			this.setState({act1:"active",act2:""});
-		}else if(i==1){
-			this.setState({act2:"active",act1:""});
+		var navbar=this.state.navbar;
+		for(var j = 0; j < navbar.length; j++) {
+			navbar[j] = '';
 		}
+		navbar[i]='active';
+		this.setState({'navbar':navbar});
 	}
 
 	constructor(props){
 		super(props);
 		this.state = {
-			act1:"active",
-			act2:""
+			navbar:['active','','']
 		}
+		
 	}
 
-	render(){;
+	render(){
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		return(
 
-			
-			
 			<Navbar className="wave-forest hide-on-med-and-down" >
 
 			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
 			  
 			  <NavLink to="/Residences/Home"  >
-			  	<NavItem  className={this.state.act1} onClick = {(event) => {this.changeactives(0)}} > Inicio </NavItem>
+			  	<NavItem  className={this.state.navbar[0]} onClick = {(event) => {this.changeactives(0)}} > Inicio </NavItem>
 			  </NavLink>
 
 			  <NavLink to="/Residences/Instructives"  >
-			  	<NavItem className={this.state.act2} onClick = {(event) => {this.changeactives(1)}} > Instructivos </NavItem>
+			  	<NavItem className={this.state.navbar[1]} onClick = {(event) => {this.changeactives(1)}} > Instructivos </NavItem>
 			  </NavLink>
-			  <NavItem className="right"> 
+			  <NavLink  to={"/"+data.usertype+"/Profile"}>
+			  	<NavItem className={this.state.navbar[2]} onClick = {(event) => {this.changeactives(2)}} > Perfil </NavItem>
+			  </NavLink>
+
+			  <NavItem className='right '> 
 			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
 
 					  	<div className="bold nobreak">
@@ -51,7 +54,13 @@ class Navigation extends Component {
 					  	</div>
 				  }>
 					  
-					  <NavLink to={"/"+data.usertype+"/Profile"}> <NavItem > Perfil </NavItem>  </NavLink>
+					  	<NavLink  to={"/"+data.usertype+"/Profile"}>
+							<NavItem  
+								className={this.state.navbar[2]}
+								onClick = {(event) => {this.changeactives(2)}}
+					  		> Perfil 
+							</NavItem>  
+					  	</NavLink>
 					  <NavItem divider />
 					  <NavItem href="/Logout"> Cerrar Sesión </NavItem>
 				</Dropdown> </NavItem>

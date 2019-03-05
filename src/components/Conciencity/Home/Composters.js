@@ -35,7 +35,7 @@ class Composters extends Component{
       }
 
 		// url de Residences, estas variables se usan para el request y la creación en el formulario del select. 
-		var url={'get':'/Composters','other':'/Composters','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
+		var url={'get':'/Communities/' +this.state.id2 + '/Composters','other':'/Composter','dependence':{'url':'/Communities','fk':'communityId','selectName':'name'} };
 
 
 		return(

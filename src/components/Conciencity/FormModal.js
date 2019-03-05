@@ -12,19 +12,19 @@ class FormModal extends Component{
 		var data = JSON.parse(sessionStorage.getItem('getData'));
 		if(data){
 	
-				var forms = this.state.forms;
+				var forms = JSON.parse(JSON.stringify(this.state.forms));
 				var send = true;
 
 				//En caso de tener contrasena:
-				if(forms['password']){
-					if(forms['password'] !== forms['repeat password']) {
+				if(forms['newPassword']){
+					if(forms['newPassword'] !== forms['repeatPassword']) {
 						window.Materialize.toast('Las contrasenas no coinciden', 1000, 'red');
 						send=false;
-					}else if(forms['password'] === " " || forms['password'] === "" ){
+					}else if(forms['newPassword'] === " " || forms['newPassword'] === "" ){
 						window.Materialize.toast('contrasena invalida', 1000, 'red');
 						send=false;
 					}else{
-						delete forms["repeat password"];
+						delete forms["repeatPassword"];
 					}
 				}
 
@@ -38,35 +38,46 @@ class FormModal extends Component{
 
 					}
 					var url="https://api-conciencity.herokuapp.com/api/" + method['http'];
-					if(method['type'] == "patch"){
+					if(method['type'] == "PATCH"){
 						url=url+"/" + forms.id;
 					}
-					console.log(select,"AQUI",url)
 
 					fetch(url + "?access_token=" + data['token'],
 							{
-							    method: method['type'],
-							    body: JSON.stringify(forms),
-							     headers:{
-										'Accept': 'application/json',
+									method: method['type'],
+									dataType: 'json',
+							    headers:{
+										'Access-Control-Allow-Methods':'*',
 								    'Content-Type': 'application/json'
-								  }
+									},
+									body: JSON.stringify(forms)
 							}
-						).then(response => response.json())
-						.then(parsedJson => {
+						).then(response => {
+							console.log("RESPONSE: ",response);
+							if(response.status == 204){
+								window.Materialize.toast('Contraseña cambiada correctamente!', 1000, 'red');
+							}
+							
+							return(response.json());
+						}
+						).then(parsedJson => {
+							console.log("HERE", parsedJson);
 							if(parsedJson['error']){
-								console.log(parsedJson);
-								window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
+								if(parsedJson['error']['message'] == 'Invalid current password' ){
+									window.Materialize.toast('Contraseña invalida!, porfavor ingrese su contraseña actual correctamente.', 5000, 'red');
+								}else{
+									window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
+								}
+								
 							}else{
 								console.log('creadooo',parsedJson);
 								var functions=this.props.function;
 								if(functions){
 									functions(parsedJson);
 								} 
-								window.Materialize.toast('Elemento creada correctamente', 1000, 'red');
+								window.Materialize.toast('Datos guardados correctamente', 1000, 'red');
 							}	
 						})
-						.catch(error => window.Materialize.toast('Error al intentar conectar con el servidor.', 1500, 'red') );
 					}
 				}
 				
@@ -89,6 +100,12 @@ class FormModal extends Component{
 		var forms = this.state.forms;
 		var select = null;
 
+		var dict = {'oldPassword':'Contraseña Actual','newPassword':'Contraseña','repeatPassword':'Repita contraseña', 'name':'Nombre','location':'Localización'
+					,'id':'id', 'address':'Dirección', 'image':'Url imagen', 'dateCollection':'Día de recolección','communeId':'Comuna','floorsQuantity':'Cantidad de pisos',
+					'rut':'Rut','number':'Número','floor':'Piso','email':'Correo electronico','communityId':'Comunidad','state':'Estado','assignedAt':'Fecha de asignación',
+					'type':'Tipo','capacity':'Capacidad','residenceId':'Residente asociado'
+		};
+
 		// Se mapea el json de formulario y se construye un input por cada uno.
 
 		var listForm = Object.keys(forms).map((element,i) => {
@@ -96,17 +113,23 @@ class FormModal extends Component{
 			//Curso de accion para string:
 			if(typeof forms[element] != "object" || typeof forms[element] == "array"){
 				var type="";
-				if(element=="password" || element=="repeat password"){
+				var range=6;
+				if(element=="newPassword" || element=="repeatPassword"){
 					type = "password";
 				}else if(element== "email"){
 					type="email";
+				}else if(element=="oldPassword"){
+					type = "password";
+					range=12;
 				}
+
+				
 
 				if(element=="id" ){
 						return(<Input s={6} label={element} defaultValue={forms[element]} disabled />);
 				}else{
 					return( 
-						<Input s={6} label={element} 
+						<Input s={range} label={dict[element]} 
 							onChange = {(event,newValue) => {
 
 									// Se utiliza una funcion onChange para que react guarde las modificaciones
@@ -129,11 +152,10 @@ class FormModal extends Component{
 
 					return(
 
-						<Input s={12} type='select' label={element} 
+						<Input s={12} type='select' label={dict[element]} 
 							onChange = {(event,newValue) => {
 									// Se utiliza una funcion onChange para que react guarde las modificaciones
 							  		forms[element]['default'] = newValue;
-							  		console.log(newValue);
 							  		this.setState({forms:forms });
 							  		}	
 							  	} 
@@ -147,7 +169,7 @@ class FormModal extends Component{
 					//En caso de que este sea una lista con elementos, actualmente son solo location:
 
 					//location x
-					var m1 = <Input s={6} label={element + ' X'} 
+					var m1 = <Input s={6} label={dict[element] + ' X'} 
 							onChange = {(event,newValue) => {
 
 									// Se utiliza una funcion onChange para que react guarde las modificaciones
@@ -160,7 +182,7 @@ class FormModal extends Component{
 					  	/> 
 
 					 //location y
-					var m2 = <Input s={6} label={element + ' Y'} 
+					var m2 = <Input s={6} label={dict[element] + ' Y'} 
 							onChange = {(event,newValue) => {
 
 									// Se utiliza una funcion onChange para que react guarde las modificaciones

@@ -13,6 +13,9 @@ render(){
         if(this.props.color == 'blue'){
             backgroundColor =  '#40c4ff';
             borderColor = "#01579b";
+        }else if(this.props.color == 'clear'){
+          backgroundColor =  '#e8f5e9';
+          borderColor = "#1b5e20";
         }
 
 

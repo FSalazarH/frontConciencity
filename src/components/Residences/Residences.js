@@ -1,7 +1,6 @@
 import React, {Component } from 'react';
 import Navigation from '.././Navigation';
-
-import {BrowserRouter,Router,Route,Switch, Link,NavLink} from 'react-router-dom';
+import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import Home from './Home';
 import Instructives from '../Managers/Instructives';
 import Profile from '../Profile';

@@ -56,8 +56,14 @@ class CRUD extends Component{
 
 
 
-			//Obtiene el primer elemento de nombre name:
-			var getRequest = fetch("https://api-conciencity.herokuapp.com/api" + url.get + "?access_token=" + data['token'])
+			//Obtiene el primer elemento de nombre name:	
+			var token=  "?access_token=" + data['token'];
+			if(url.filter){
+				token = "?filter=%7B%22include%22%3A%22" + url.filter + "%22%7D&access_token=" + data['token'];
+				
+			}
+		
+			var getRequest = fetch("https://api-conciencity.herokuapp.com/api" + url.get +token)
 							.then(response => response.json())			
 							.then(parsedJson => {
 								console.log("heere  ",url,parsedJson);
@@ -171,7 +177,7 @@ class CRUD extends Component{
 					console.log(forms);
 				}
 
-				var formPassword = {"password":"","repeat password":""}
+				var formPassword = {"newPassword":"","repeatPassword":""}
 
 				var bottonPassword = "";
 				var formModalPassword ="";
@@ -308,7 +314,7 @@ class CRUD extends Component{
 
 						  		</Row>
 						  		{formModalPassword}
-						  		<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'patch','http':this.state.url.other}}/>
+						  		<FormModal forms={forms} label={"FormModal" + (i+1).toString() } method={{'type':'PATCH','http':this.state.url.other}}/>
 						  </CollectionItem>
 						
 					)

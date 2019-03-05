@@ -56,7 +56,7 @@ class Communities extends Component{
 						</Link>
 					</MenuItem>
 				</Breadcrumb>
-				<CRUD url={url} forms ={forms} type="User" content={{'title':'','http':['/Commune','/Communities'],'type':false}} label="location_city"/>
+				<CRUD url={url} forms ={forms} content={{'title':'','http':['/Commune','/Communities'],'type':false}} label="location_city"/>
 			</div>
 		)
 	}

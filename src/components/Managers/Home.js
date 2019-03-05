@@ -1,10 +1,9 @@
 import React, {Component } from 'react';
 import moment from 'moment';
 import 'moment/locale/es' 
-import {Table,CardTitle	,SideNav,Icon,Tab, Tabs,CardPanel,Card,Button,Collection,Row,Col,CollectionItem,Input} from 'react-materialize';
-import BarChart from '.././BarChart';
+import {Table,CardPanel,Card,Button,Row,Col} from 'react-materialize';
 import LineChart from '.././LineChart';
-import {Bar,HorizontalBar} from 'react-chartjs-2';
+import {HorizontalBar} from 'react-chartjs-2';
 
 
 class Home extends Component{
@@ -15,11 +14,9 @@ class Home extends Component{
 		
 		var title = ["1 mes","3 meses","6 meses"];
 		var bool2 = this.state.switch;
-		console.log(bool2);
 		if(bool2){
 			dataSet.datasets[0].data = JSON.parse(JSON.stringify(Data[i+3]));
 			dataSet.datasets[0].label="Huella de Carbono";
-			console.log(this.state);
 			this.setState({dataSet:dataSet,ChartTittle:title[i],ChartTittle0:"Huella de Carbono"});
 		}else{
 			dataSet.datasets[0].data = JSON.parse(JSON.stringify(Data[i]));
@@ -41,7 +38,6 @@ class Home extends Component{
 		    if(title=="1 mes"){
 				this.changeMount(0);
 			}else if(title=="3 meses"){
-				console.log("here1");
 				this.changeMount(1);
 			}else{
 				this.changeMount(2);
@@ -61,7 +57,7 @@ class Home extends Component{
 			var dataSesion = JSON.parse(sessionStorage.getItem('getData'));
 			if(dataSesion){
 
-				var totalRequest = fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/residences/totalWaste?access_token=" + dataSesion['token'])
+				var totalRequest = fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/totalWaste?access_token=" + dataSesion['token'])
 					.then(response2 => response2.json())
 					.then(parsedJson2 => {
 						if(parsedJson2['error'] ){
@@ -82,14 +78,17 @@ class Home extends Component{
 				var Labels = [];
 				var recyclerName="";
 				var promised = [];
+				var humidityData = {	
+					data:[],
+					labels: []
+				};
 
 				function call(index,mou){
-					return(fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/residences/wasteByFloor/"+ mou +"?access_token=" + dataSesion['token'])
+					return(fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/wasteByFloor/"+ mou +"?access_token=" + dataSesion['token'])
 										.then(response => response.json())
 										.then(parsedJson => {
 											if(parsedJson['error'] ){
 												console.log("Error de conexión: flootCollection",parsedJson['error']);
-												console.log("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/residences/wasteByFloor/"+ mou +"?access_token=" + dataSesion['token']);
 											}else{
 												var data = [];
 												var labels = [];
@@ -121,9 +120,25 @@ class Home extends Component{
 					var promise = call(i,m);
 					promised.push(promise);
 				}
-			
+		 
+			var composterRequest = fetch("https://api-conciencity.herokuapp.com/api/Managers/" + dataSesion['id'] + "/community/statusComposter?access_token=" + dataSesion['token'])
+			.then(response => response.json())
+			.then(parsedJson => {
+				if(parsedJson['error'] ){
+					console.log("Error de conexión: Composter",parsedJson['error']);
+				}else{
+					for (var i = 0; i < parsedJson.length; i++) {
+						var measure = parsedJson[i];
+						humidityData.data.push(measure.value*100);
+						var date = moment(measure.created);
+						humidityData.labels.push(date.format('LT'));
+					}
+				}
+			})
 
-				Promise.all(promised)
+			promised.push(composterRequest);
+
+			Promise.all(promised)
 				 .then((results) => {
 				   console.log("Llamadas realizadas correctamente")
 
@@ -139,10 +154,6 @@ class Home extends Component{
 				   		}
 				   		Data.push(dataRecycler);
 				   }
-
-
-				   var humidityData = {	data:[80,85,70,46,70,40],
-				   						labels: ["13:00","14:00","15:00","16:00","17:00","18:00"]};
 
 				   var perfectHumidity =[];
 				   for (var i = 0; i < humidityData['data'].length; i++) {
@@ -279,7 +290,6 @@ class Home extends Component{
 				
 			};
 			
-			console.log("zqqqqquiiiiiiiiiiiii:  ",this.state);
 			return(		
 					<div>
 						<Row className="">
@@ -293,7 +303,7 @@ class Home extends Component{
 							            		<h5> ultimas 4 recolecciones </h5>
 							            	</Col>
 							            	<Col s={12}>
-							            		<LineChart data={data} labels={labels} tag="Kilos" height={200}/>
+							            		<LineChart data={data} labels={labels} tag="Kilos" height={200} />
 							            	</Col>
 							            </Row>
 							        </CardPanel>
@@ -340,10 +350,9 @@ class Home extends Component{
 							            	</Col>
 							            	<Col m={8} s={10}>
 							            		<h5> Estado compostera </h5>
-							            		<br/>
 							            	</Col>
 							            	<Col s={12} m={12}>
-							            		<LineChart color="blue" height={200} data={this.state.humidityData.data} labels={this.state.humidityData.labels} tag="% Humedad "/>
+							            		<LineChart color="blue" height={240} data={this.state.humidityData.data} labels={this.state.humidityData.labels} tag="% Humedad "/>
 							            	</Col>
 							            </Row>
 							        </CardPanel>

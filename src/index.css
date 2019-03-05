@@ -324,3 +324,14 @@ nav.nav-center ul li a {
   visibility: hidden;
   font-size: 1.1em;
 }
+
+
+
+.close-botton{
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-size: 20px;
+  color: white;
+  cursor:pointer; 
+}

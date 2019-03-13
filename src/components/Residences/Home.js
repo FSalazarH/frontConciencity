@@ -155,10 +155,10 @@ class Home extends Component{
 						<Col s={12}> <br/>  </Col>
 						<Col s={8}>
 							
-							<Parallax className="white-text"
+							<Parallax className="white-text mt-1"
 					            blur={4}
 					            bgImage={window.location.origin + '/img/panoramica2.jpg'} 
-					            strength={180}>
+					            strength={180} style={{'height':'300px'}}>
 										<Row className="center-align">
 											<Col  s="12">
 											<br/>
@@ -178,7 +178,7 @@ class Home extends Component{
 						</Col>
 						
 						<Col s={4}>
-											<Card className="white-text light-green darken-3">
+											<Card className="white-text light-green darken-3" style={{'height':'300px'}}>
 												<Row>
 													
 													<Col s={12} className="medium-text2 center-align" > Tu proxima recolección es <br/>  <br/> </Col>

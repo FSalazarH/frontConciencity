@@ -74,8 +74,7 @@ class Residences extends Component{
 						<BrowserRouter>
 							<div>
 								<Navigation name={username}/>
-								<div className="container">
-										<div style={{width: 1000, margin: '0 auto'}}>
+										<div style={{width: 1200, margin: '0 auto'}} >
 								          
 								          <Switch>
 								              <Route exact path='/Residences/Home' component={Home} />
@@ -83,7 +82,6 @@ class Residences extends Component{
 															<Route exact path="/Residences/Profile" component={Profile} />
 								          </Switch>
 								        </div>
-								</div>
 							</div>
 						</BrowserRouter>
 					)

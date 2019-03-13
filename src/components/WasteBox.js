@@ -1,15 +1,17 @@
 import React, {Component } from 'react';
 import {Tabs, Tab} from 'react-materialize';
+import moment from 'moment';
+import 'moment/locale/es' ;
 
 class WasteBox extends Component{
 	render(){
 		var data= this.props.data;
 		const listItems = data.map((element,i) => {
+			var elapsed = moment(element.created);
+
 			
-			var date = element.collectedAt.split(" ");
- 			var elapsed = date[1] + " " + date[2].slice(0, 3);
 			return(							
-				<Tab title={ elapsed } active={i===0} >
+				<Tab title={ elapsed.format("D MMM") } active={i===0} >
 
 				    	<div className="card">
 				    		<table>
@@ -23,18 +25,18 @@ class WasteBox extends Component{
 						        <tbody>
 						          <tr>
 						            <td>Fecha:</td>
-						            <td>  {element.collectedAt}  </td>
+						            <td>  {elapsed.format("dddd D MMMM HH:mm ") }  </td>
 						          </tr>
 						          <tr>
 						            <td>Cantidad de residuos:</td>
 						            <td> {element.weight} kilos </td>
 						          </tr>
 						          <tr>
-						            <td>Nombre Reciclado: </td>
+						            <td>Nombre Reciclador: </td>
 						            <td> Reciclador </td>
 						          </tr>
 						           <tr>
-						            <td>Aporte ambiental estimado: </td>
+						            <td>Ahorro estimado: </td>
 						            <td>{element.weight*2} e kg </td>
 						          </tr>
 						        </tbody>

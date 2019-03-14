@@ -171,7 +171,7 @@ class Home extends Component{
 											</Col>
 											<Col s={5} offset="s1">
 												<br/>
-												La municipalidad de <span className="bold"> {userData.commune} </span> se ahorró <span className="bold">$830 pesos</span>  en el último mes de <span className="bold">Enero</span>, ya que reciclaste <span className="bold">4 kg </span> de residuos orgánicos y se evito que se los llevarán al relleno sanitario <span className="bold">{userData.landfill} </span>  ubicado en <span className="bold"> San Bernanrdo. </span>										
+												La municipalidad de <span className="bold"> {userData.commune} </span> se ahorró <span className="bold">$830 pesos</span>  en el último mes de <span className="bold">Enero</span>, ya que reciclaste <span className="bold">4 kg </span> de residuos orgánicos y se evito que se los llevarán al relleno sanitario <span className="bold">{userData.landfill} </span>  ubicado en <span className="bold"> San Bernardo. </span>										
 											</Col>
 										</Row>
 					    		</Parallax>
@@ -215,7 +215,7 @@ class Home extends Component{
 										</Col>
 									</Row>
 								</Tab>
-								<Tab title="Residuos hitoricos" >
+								<Tab title="Residuos históricos" >
 									<Row>
 										<Col s={12}>
 											<br/> <br/> <br/>

@@ -22,9 +22,9 @@ class forms extends Component{
 			).then(response => response.json())			
 			.then(parsedJson => {
 				if(parsedJson['error'] ){
-					window.Materialize.toast('Ups!, lo sentimos ha ocurrido un error.', 1000, 'red');
+					window.Materialize.toast('Ups!, lo sentimos ha ocurrido un error.', 4000, 'yellow');
 				}else{
-					window.Materialize.toast('Perfil editado correctamente.', 1000, 'red');
+					window.Materialize.toast('Perfil editado correctamente.', 4000, 'blue');
 				}
 			});
 
@@ -109,8 +109,8 @@ class forms extends Component{
 						<br/>
 					
 					</Col>
-
-					<Col s={1} offset="s11" className="align-right">    
+ 
+					<Col s={1} offset="s9" className="align-right">    
 						<Button floating large className='blue' waves='light' icon='edit' 
 							onClick={() => { 
 								var dis = this.state.disabled;
@@ -118,10 +118,7 @@ class forms extends Component{
 							 }}
 						/>	
 					</Col>
-					<Col s={4}>
-						<img  src= {window.location.origin + '/img/user.png'}  className="responsive-img"/> 
-					</Col>
-					<Col s={8}>
+					<Col s={10} offset="s1">
 						<Card>
 							<Row>
 								{listItems}
@@ -144,7 +141,7 @@ class forms extends Component{
 
 					
 
-					<Col s={8} offset="s4">
+					<Col s={10} offset="s1">
 										 <Card className="center-align">
 											 <Button className="orange darken-1"  
 									 	onClick={() => { 

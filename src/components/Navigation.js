@@ -1,6 +1,9 @@
 import React, {Component } from 'react';
 import {Navbar, Dropdown, NavItem} from 'react-materialize';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
+import Icon from 'react-materialize/lib/Icon';
+import Row from 'react-materialize/lib/Row';
+import Col from 'react-materialize/lib/Col';
 
 class Navigation extends Component {
 
@@ -27,7 +30,9 @@ class Navigation extends Component {
 
 			<Navbar className="wave-forest hide-on-med-and-down" >
 
-			 <NavItem> <img  width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  </NavItem>
+			 <NavItem > <img style={{'display':'block','padding-bottom':'10px'}} width="180px" src= {window.location.origin + '/img/logo-white.png'}  className="responsive-img"/>  
+			 
+			 </NavItem>
 			  
 			  <NavLink to="/Residences/Home"  >
 			  	<NavItem  className={this.state.navbar[0]} onClick = {(event) => {this.changeactives(0)}} > Inicio </NavItem>
@@ -39,31 +44,24 @@ class Navigation extends Component {
 			  <NavLink  to={"/"+data.usertype+"/Profile"}>
 			  	<NavItem className={this.state.navbar[2]} onClick = {(event) => {this.changeactives(2)}} > Perfil </NavItem>
 			  </NavLink>
+			  
+			  <a className='right'> 
+			  	<Dropdown  options={{belowOrigin: true,autoTrigger: false, hover: false}} trigger={
 
-			  <NavItem className='right '> 
-			  	<Dropdown  options={{belowOrigin: true,autoTrigger: true, hover: true}} trigger={
-
-					  	<div className="bold nobreak">
-					  				<span className="avatar-status mr-2" >
-						              <img src= {window.location.origin + '/img/residence.png'} class="circle responsive-img"/> 
-					  			</span>
-						  			<div className="md-1" style={{'display': 'inline-block'}}>
-						  				 &emsp; {this.props.name}
-						  				 &emsp;
-						  			</div>
+					  	<div className="btn cyan darken-4 bold" >
+						  	<Row>
+								<Col s={4}>  <i className="material-icons avatar-status"> arrow_drop_down person</i>  </Col>
+								<Col s={8}>  {this.props.name}  </Col>
+							</Row> 
 					  	</div>
 				  }>
 					  
-					  	<NavLink  to={"/"+data.usertype+"/Profile"}>
-							<NavItem  
-								className={this.state.navbar[2]}
-								onClick = {(event) => {this.changeactives(2)}}
-					  		> Perfil 
-							</NavItem>  
-					  	</NavLink>
+					  	<Link onClick = {(event) => {this.changeactives(2)}}  to={"/"+data.usertype+"/Profile"} style={{'color':'#26a69a','height':'50px'}}>
+							Perfil   
+					  	</Link>
 					  <NavItem divider />
 					  <NavItem href="/Logout"> Cerrar Sesión </NavItem>
-				</Dropdown> </NavItem>
+				</Dropdown> </a>
 
 
 

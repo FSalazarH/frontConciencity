@@ -120,10 +120,20 @@ class Home extends Component{
 
 			//Obtiene el tiempo faltante para la recoleccion
 			moment.locale('en'); 
-			var date = moment(this.state.userData.dateCollection,"dddd HH:mm").locale("es");
+			var date = moment("saturday 11:00","dddd HH:mm").locale("es");
+			//var date = moment(this.state.userData.dateCollection,"dddd HH:mm").locale("es");
 			moment.locale('es'); 
+
+
 			var today = moment();    
 			var diff= date.diff(today,'days');
+
+			//En caso de que la diferencia sea menor a 0 obtengo el dia de la siguiente semana:
+			if(diff<0){
+				date = date.add(1, 'weeks');
+				diff= date.diff(today,'days');
+			}
+
 
 			//Data historica
 			var dataHistory = [];
@@ -141,14 +151,96 @@ class Home extends Component{
 				wasteCollections[i]['created'] = dates.format("dddd D MMMM HH:mm A") 
 			};
 			var daysNextCollection;
-			if(diff>1){
-				daysNextCollection = "en"+ diff.toString() + " días";
-			}else if(diff==1){
-				daysNextCollection = "mañana!";
+			var CardNextCollection;
+
+			if(diff>=1){
+				if(diff>1){
+					daysNextCollection = "en "+ diff.toString() + " días";
+				}else{
+					daysNextCollection = "mañana!";
+				}
+				
+				CardNextCollection = 
+					<Card className="white-text light-green darken-3" style={{'height':'300px'}}>
+						<Row>
+							
+							<Col s={12} className="medium-text2 center-align" > Tu proxima recolección es <br/>  <br/> </Col>
+							<Col s={3} offset="s1"> 
+								<img  alt="waste-collector"  height="60" src= {window.location.origin + '/img/waste-collector.png'} /> 
+							</Col>
+				
+							<Col s={6} offset="s1" className="hight-text"> {daysNextCollection} <br/>  </Col>
+							<Col s={12} className="medium-text center-align" >Esta se realizara el día <br/>  <br/> </Col>
+							
+
+							<Col s={2}> 
+								<img  alt="waste-collector"  height="50" src= {window.location.origin + '/img/calendar.png'} /> 
+							</Col>
+				
+							<Col s={10}  className="hight-text center-align"> {date.format('dddd DD MMMM') } <br/> { date.format(' HH:mm A')} <br/>  </Col>
+						</Row>
+					</Card>
+				
 			}else{
-				daysNextCollection = "hoy!";
+				daysNextCollection = "hoy";
+
+				//Es el mismo dia, obtenemos la diferencia en horas:
+				var diffHours= date.diff(today,'hours');
+				if(diffHours<0){
+					//Si es menor que 0 la recoleccion ya fue:
+
+					date = date.add(1, 'weeks'); //Le sumo una semana a la recoleccion
+
+					CardNextCollection = 
+					<Card className="white-text light-green darken-3" style={{'height':'300px'}}>
+						<Row>
+							
+							<Col s={12} className="medium-text2 center-align" > Tu recolección se realizo hoy a las <br/>  <br/> </Col>
+							<Col s={3} offset="s1"> 
+								<img  alt="waste-collector"  height="60" src= {window.location.origin + '/img/waste-collector.png'} /> 
+							</Col>
+				
+							<Col s={6} offset="s1" className="hight-text"> {date.format('HH:mm A')} <br/>  </Col>
+							<Col s={12} className="medium-text center-align" > La siguiente recolección se realizara el día  <br/>  <br/> </Col>
+							
+
+							<Col s={2}> 
+								<img  alt="waste-collector"  height="50" src= {window.location.origin + '/img/calendar.png'} /> 
+							</Col>
+				
+							<Col s={10}  className="hight-text center-align"> {date.format('dddd DD MMMM') } <br/> { date.format(' HH:mm A')} <br/>  </Col>
+						</Row>
+					</Card>
+				}else{
+					
+					//Si es mayor a 0, aun no es:
+					CardNextCollection = 
+					<Card className="white-text light-green darken-3" style={{'height':'300px'}}>
+						<Row>
+							
+							<Col s={12} className="medium-text2 center-align" > Tu proxima recolección es <br/>  <br/> </Col>
+							<Col s={3} offset="s1"> 
+								<img  alt="waste-collector"  height="60" src= {window.location.origin + '/img/waste-collector.png'} /> 
+							</Col>
+				
+							<Col s={6} offset="s1" className="hight-text"> hoy {date.format('dddd')} <br/> <br/> </Col>
+							<Col s={12} className="medium-text center-align" >Esta se realizara a las  <br/>  <br/> </Col>
+							
+
+							<Col s={4} className="center-align"> 
+								<img  alt="waste-collector"  height="50" src= {window.location.origin + '/img/calendar.png'} /> 
+							</Col>
+				
+							<Col s={8}  className="hight-text center-align"> { date.format(' HH:mm A')} <br/>  </Col>
+						</Row>
+					</Card>
+				}
+
+				
+
 			}
 			
+
 
 			return(
 				<Row>
@@ -166,37 +258,20 @@ class Home extends Component{
 												<h6> {userData.address}, comunidad {userData.community}, comuna {userData.commune} </h6>
 												<br/>
 											</Col>
-											<Col s={3} offset="s1"> 
+											<Col s={2}> 
 												<img  alt="piggy-bank"  height="150" src= {window.location.origin + '/img/piggy-bank.png'} /> 
 											</Col>
-											<Col s={5} offset="s1">
+											<Col s={9} offset="s1" style={{'font-size':17,'background-color':'rgba(0, 0, 0, 0.5)'}}>
 												<br/>
 												La municipalidad de <span className="bold"> {userData.commune} </span> se ahorró <span className="bold">$830 pesos</span>  en el último mes de <span className="bold">Enero</span>, ya que reciclaste <span className="bold">4 kg </span> de residuos orgánicos y se evito que se los llevarán al relleno sanitario <span className="bold">{userData.landfill} </span>  ubicado en <span className="bold"> San Bernardo. </span>										
+												<br/> <br/>
 											</Col>
 										</Row>
 					    		</Parallax>
 						</Col>
 						
 						<Col s={4}>
-											<Card className="white-text light-green darken-3" style={{'height':'300px'}}>
-												<Row>
-													
-													<Col s={12} className="medium-text2 center-align" > Tu proxima recolección es <br/>  <br/> </Col>
-													<Col s={3} offset="s1"> 
-														<img  alt="waste-collector"  height="60" src= {window.location.origin + '/img/waste-collector.png'} /> 
-													</Col>
-										
-													<Col s={6} offset="s1" className="hight-text"> {daysNextCollection} <br/>  </Col>
-													<Col s={12} className="medium-text center-align" >Esta se realizara el día <br/>  <br/> </Col>
-													
-
-													<Col s={2}> 
-														<img  alt="waste-collector"  height="50" src= {window.location.origin + '/img/calendar.png'} /> 
-													</Col>
-										
-													<Col s={10}  className="hight-text center-align"> {date.calendar()} <br/>  </Col>
-												</Row>
-											</Card>
+											{CardNextCollection}
 						</Col>
 
 						<Col s={12} style={{'height': '500px'}}> 
@@ -205,7 +280,7 @@ class Home extends Component{
 								<Tab title="Últimas recolecciones" active>
 									<Row>
 										<Col s={12}>
-											<br/> <br/> <br/>
+											<br/> <p className="hight-text center-align"> Ultimas recolección año 2019 </p> <br/>
 										</Col>
 										<Col m={6}>
 											<BarChart data={data} labels={labels} color='green' />

@@ -18,10 +18,10 @@ class FormModal extends Component{
 				//En caso de tener contrasena:
 				if(forms['newPassword']){
 					if(forms['newPassword'] !== forms['repeatPassword']) {
-						window.Materialize.toast('Las contrasenas no coinciden', 1000, 'red');
+						window.Materialize.toast('Las contrasenas no coinciden', 4000, 'yellow');
 						send=false;
 					}else if(forms['newPassword'] === " " || forms['newPassword'] === "" ){
-						window.Materialize.toast('contrasena invalida', 1000, 'red');
+						window.Materialize.toast('contrasena invalida', 4000, 'yellow');
 						send=false;
 					}else{
 						delete forms["repeatPassword"];
@@ -55,18 +55,18 @@ class FormModal extends Component{
 						).then(response => {
 							console.log("RESPONSE: ",response);
 							if(response.status == 204){
-								window.Materialize.toast('Contraseña cambiada correctamente!', 1000, 'red');
+								window.Materialize.toast('Contraseña cambiada correctamente!', 4000, 'blue');
 							}
-							
+
 							return(response.json());
 						}
 						).then(parsedJson => {
 							console.log("HERE", parsedJson);
 							if(parsedJson['error']){
 								if(parsedJson['error']['message'] == 'Invalid current password' ){
-									window.Materialize.toast('Contraseña invalida!, porfavor ingrese su contraseña actual correctamente.', 5000, 'red');
+									window.Materialize.toast('Contraseña invalida!, porfavor ingrese su contraseña actual correctamente.', 5000, 'yellow');
 								}else{
-									window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 1500, 'red');
+									window.Materialize.toast('Lo sentimos :c, a ocurrido un error!', 4000, 'yellow');
 								}
 								
 							}else{
@@ -75,7 +75,7 @@ class FormModal extends Component{
 								if(functions){
 									functions(parsedJson);
 								} 
-								window.Materialize.toast('Datos guardados correctamente', 1000, 'red');
+								window.Materialize.toast('Datos guardados correctamente', 4000, 'blue');
 							}	
 						})
 					}

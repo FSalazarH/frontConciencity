@@ -20,8 +20,9 @@
         } 
 
         .tabs .indicator {
-            background-color:black;
-             color:white;
+            background-color:#006064;
+            color:white;
+            height:7px;
         } /*Color of underline*/
 
 
@@ -94,14 +95,15 @@ i.iconis {
 
 
 .avatar-status {
-  position: relative;
-  display: inline-block;
-  line-height: 50px;
-  width: 38px;
-  white-space: nowrap;
-  border-radius: 1000px;
-  vertical-align: bottom;
+  padding-bottom: 40px;
+  margin-top: -13px;
 }
+
+.avatar-name{
+  display: inline;
+  padding-right: 30px;
+}
+
 
 .avatar-status img {
   width: 100%;
@@ -349,3 +351,4 @@ nav.nav-center ul li a {
 .hight-text{
   font-size: 25px;
 }
+

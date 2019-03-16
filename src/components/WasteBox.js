@@ -15,13 +15,6 @@ class WasteBox extends Component{
 
 				    	<div className="card">
 				    		<table>
-						        <thead>
-						          <tr>
-						              <th> </th>
-						              <th> </th>
-						          </tr>
-						        </thead>
-
 						        <tbody>
 						          <tr>
 						            <td>Fecha:</td>
